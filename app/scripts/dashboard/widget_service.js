@@ -2,7 +2,7 @@ var mod = angular.module('o-dashboard');
 
 mod.service('widgetService', [
     function() {
-        var self = this;
+
         var data = [
             {   title:'Widget #1',
                 grid: { row:1, col:1, sizex:3, sizey:3}
@@ -25,16 +25,17 @@ mod.service('widgetService', [
             }
         ];
 
-        self.getWidgets = function() {
+        this.getWidgets = function() {
+            console.log( 'widget service: getwigets', data );
             return data;
         };
 
-        self.removeWidget = function ( id ) {
+        this.removeWidget = function ( id ) {
             console.log( 'widget service: removing widget id: ', id );
         };
 
-        self.addWidget = function (widget) {
-            console.log( 'widget service: adding widget' );
+        this.addWidget = function (widget) {
+            console.log( 'widget service: adding widget', widget );
             data.push(widget);
         }
 

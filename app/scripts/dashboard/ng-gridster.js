@@ -33,6 +33,24 @@ mod.controller('gridsterCtrl', [
             }
         };
         self.options = angular.extend(self.defaultOptions, $scope.$eval($attrs.options));
+
+
+        self.attachElementToGridster = function(li) {
+            //attaches a new element to gridster
+            var $w = li.addClass('gs_w').appendTo(self.gridster.$el).hide();
+            self.gridster.$widgets = self.gridster.$widgets.add($w);
+            self.gridster.register_widget($w).add_faux_rows(1).set_dom_grid_height();
+            $w.fadeIn();
+        };
+
+        $scope.$watch('widgets.length', function(newValue, oldValue) {
+            if (newValue === oldValue) return;
+            if (newValue !== oldValue+1) return; //not an add
+
+            var li = self.$el.find('ul').find('li').last();
+
+            $timeout(function() { self.attachElementToGridster(li); }); //attach to gridster
+        });
     }
 ]);
 
@@ -62,7 +80,7 @@ mod.directive('gridster', [
                                 widget.grid.row = li.attr('data-row');
                                 widget.grid.col = li.attr('data-col');
                             });
-                            $scope.$apply();
+                            scope.$apply();
                         };
                     });
 
@@ -77,7 +95,7 @@ mod.directive('widget', [
     function($timeout) {
         return {
             restrict: 'E',
-            require: '^gridster',
+//            require: '^gridster',
             templateUrl: 'templates/widget.html',
             replace: true,
             scope: {
@@ -86,8 +104,6 @@ mod.directive('widget', [
             },
             link: function(scope, element, attrs, ctrl) {
                 var $el = $(element);
-
-
             }
         }
     }

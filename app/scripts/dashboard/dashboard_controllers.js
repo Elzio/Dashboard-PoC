@@ -4,9 +4,13 @@ mod.controller('dashboardCtrl', [
     '$scope',
     'widgetService',
     function($scope, widgetService) {
+        var self = this;
 
-        $scope.widgets = widgetService.getWidgets();
-        console.log('dahboardCtrl, widgets:', $scope.widgets);
+        $scope.widgets = function() {
+            return widgetService.getWidgets();
+        };
+
+        console.log('dahboardCtrl, widgets:', $scope.widgets());
 
         $scope.addWidget = function() {
             var fakeWidget = {
