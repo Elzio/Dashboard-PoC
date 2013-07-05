@@ -33,9 +33,6 @@ mod.controller('gridsterCtrl', [
             }
         };
         self.options = angular.extend(self.defaultOptions, $scope.$eval($attrs.options));
-
-        console.log('gridoptions:',self.options);
-
     }
 ]);
 
@@ -55,6 +52,18 @@ mod.directive('gridster', [
                     $timeout(function() {
                         var $ul = ctrl.$el.find('ul');
                         ctrl.gridster = $ul.gridster(ctrl.options).data('gridster');
+
+                        ctrl.gridster.options.draggable.stop = function(event, ui) {
+                            //update model
+                            angular.forEach($ul.find('li'), function(item, index) {
+                                var li = angular.element(item);
+                                if (li.attr('class') === 'preview-holder') return;
+                                var widget = scope.widgets[index];
+                                widget.grid.row = li.attr('data-row');
+                                widget.grid.col = li.attr('data-col');
+                            });
+                            $scope.$apply();
+                        };
                     });
 
                 }
