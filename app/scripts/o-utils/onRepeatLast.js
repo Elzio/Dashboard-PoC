@@ -4,10 +4,10 @@ mod.directive('onRepeatLast', [
     function() {
         return {
             restrict: 'A',
-            link: function (scope, element, attr) {
+            link: function (scope, element, attrs) {
                 var isLast = scope.$last || scope.$parent.$last;
                 if (isLast) {
-                    scope.$evalAsync(attr.onRepeatLast);
+                    scope.$evalAsync(attrs.onRepeatLast);
                 }
             }
         }
