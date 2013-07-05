@@ -1,0 +1,17 @@
+gridster,
+.gridster,
+[gridster] {
+    & * {
+        //box-sizing: border-box;
+    }
+
+    ul {
+         li,
+         .widget {
+            list-style: none;
+            background: gray;
+            cursor: pointer;
+        }
+    }
+
+}
