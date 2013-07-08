@@ -47,9 +47,12 @@ mod.controller('gridsterCtrl', [
             if (newValue === oldValue) return;
             if (newValue !== oldValue+1) return; //not an add
 
-            var li = self.$el.find('ul').find('li').last();
 
-            $timeout(function() { self.attachElementToGridster(li); }); //attach to gridster
+
+            $timeout(function() {
+                var li = self.$el.find('ul').find('li').last()
+                self.attachElementToGridster(li);
+            }); //attach to gridster
         });
     }
 ]);
@@ -86,7 +89,7 @@ mod.directive('gridster', [
 
                 }
             }
-        };
+        }
     }
 ]);
 
@@ -94,16 +97,14 @@ mod.directive('widget', [
     '$timeout',
     function($timeout) {
         return {
-            restrict: 'E',
-//            require: '^gridster',
-            templateUrl: 'templates/widget.html',
-            replace: true,
+            restrict: 'A',
             scope: {
                 remove: '&',
                 widget: '='
             },
-            link: function(scope, element, attrs, ctrl) {
+            link: function(scope, element, attrs) {
                 var $el = $(element);
+
             }
         }
     }

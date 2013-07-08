@@ -1,6 +1,12 @@
 <ul>
-    <widget ng-repeat='this_widget in widgets'
-            on-repeat-last='$parent.initGrid()'
-            widget='this_widget'>
-    </widget>
+    <li on-repeat-last='$parent.initGrid()'
+        ng-repeat='this_widget in widgets'
+        widget='this_widget'
+
+        data-col='{{widget.grid.col}}'
+        data-row='{{widget.grid.row}}'
+        data-sizex='{{widget.grid.sizex}}'
+        data-sizey='{{widget.grid.sizey}}'>
+        {{widget | json}}
+    </li>
 </ul>
