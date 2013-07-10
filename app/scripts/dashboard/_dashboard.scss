@@ -10,6 +10,15 @@ gridster,
             list-style: none;
             overflow: hidden;
 
+            .ui-resizable-handle {
+                &.ui-resizable-e {
+                    right: -2px;
+                }
+                &.ui-resizable-s {
+                    bottom: -2px;
+                }
+            }
+
             &[widget] {
                 background: gray;
                 cursor: pointer;
