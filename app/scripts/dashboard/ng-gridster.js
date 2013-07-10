@@ -276,6 +276,10 @@ mod.directive('widget', [
                     var base_size = ctrl.gridster.options.widget_base_dimensions;
                     var margins = ctrl.gridster.options.widget_margins;
 
+                    var headerHeight =  $el.find('header').outerHeight();
+                    var $content = $el.find('.content');
+
+
                     $el.resizable({
                         grid: [base_size[0] + (margins[0] * 2), base_size[1] + (margins[1] * 2)],
                         animate: false,
@@ -287,14 +291,20 @@ mod.directive('widget', [
 
                             element.resizable('option', 'grid', [base_size[0] + (margins[0] * 2), base_size[1] + (margins[1] * 2)]);
                         },
-
+                        resize: function(event, ui) {
+                            $content.outerHeight($el.innerHeight() - headerHeight);
+                        },
                         stop: function(event, ui) {
+                            $content.outerHeight($el.innerHeight() - headerHeight);
+
                             setTimeout(function() {
                                 sizeToGrid($el);
                                 ctrl.updateModel();
                             }, 300);
                         }
                     });
+
+
 
                     $('.ui-resizable-handle, .no-drag, .disabled, [disabled]', $el).hover(function() {
                         ctrl.gridster.disable();

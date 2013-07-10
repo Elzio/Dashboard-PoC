@@ -9,14 +9,23 @@
         data-row='{{widget.grid.row}}'
         data-sizex='{{widget.grid.sizex}}'
         data-sizey='{{widget.grid.sizey}}'>
+
         <header>
-            <h3>title</h3>
-            <button class="btn btn-large close pull-right" ng-click="remove($event)">&times;</button>
+            <h3>{{widget.title}}</h3>
+            <div class="btn btn-medium close" ng-click="remove($event)">&times;</div>
         </header>
+
         <div class='content'>
-            {{widget.title}}
+
+
             <p>
                 {{widget.grid | json}}
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa id iure minus nemo quis sint. Ab corporis dolorum enim eos est fugiat, ipsa libero officia quaerat rem reprehenderit voluptates.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa id iure minus nemo quis sint. Ab corporis dolorum enim eos est fugiat, ipsa libero officia quaerat rem reprehenderit voluptates.
             </p>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam culpa id iure minus nemo quis sint. Ab corporis dolorum enim eos est fugiat, ipsa libero officia quaerat rem reprehenderit voluptates.
