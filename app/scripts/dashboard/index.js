@@ -1,1 +1,1 @@
-angular.module('o-dashboard', []);
+angular.module('o-dashboard', ['o-utils']);
