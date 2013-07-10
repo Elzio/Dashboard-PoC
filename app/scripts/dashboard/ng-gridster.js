@@ -1,6 +1,52 @@
 (function($) {
     // Extensions from: https://github.com/ducksboard/gridster.js/pull/77
     var extensions = {
+        // HACK - Overriding method See Comment Below
+        generate_grid_and_stylesheet: function() {
+            var aw = this.$wrapper.width();
+            var ah = this.$wrapper.height();
+            var max_cols = this.options.max_cols;
+
+            var cols = Math.floor(aw / this.min_widget_width) +
+                this.options.extra_cols;
+
+            var actual_cols = this.$widgets.map(function() {
+                return $(this).attr('data-col');
+            }).get();
+
+            //needed to pass tests with phantomjs
+            actual_cols.length || (actual_cols = [0]);
+
+            var min_cols = Math.max.apply(Math, actual_cols);
+
+            // get all rows that could be occupied by the current widgets
+            var max_rows = this.options.extra_rows;
+            this.$widgets.each(function(i, w) {
+                max_rows += (+$(w).attr('data-sizey'));
+            });
+
+            this.cols = Math.max(min_cols, cols, this.options.min_cols);
+
+            if (max_cols && max_cols >= min_cols && max_cols < this.cols) {
+                this.cols = max_cols;
+            }
+
+            this.rows = Math.max(max_rows, this.options.min_rows);
+
+            this.baseX = ($(window).width() - aw) / 2;
+            this.baseY = this.$wrapper.offset().top;
+
+            // HACK
+            // Container width has to be undefined when gridster is first initialized
+            // Draggable will then respond appropriately;
+            this.container_width = null;
+
+            if (this.options.autogenerate_stylesheet) {
+                this.generate_stylesheet();
+            }
+
+            return this.generate_faux_grid(this.rows, this.cols);
+        },
         // Overriding default add_style_tag function of gridster to add an extra attribute for propper cleanup
         add_style_tag: function(css) {
             var d = document;
@@ -78,7 +124,6 @@ mod.controller('gridsterCtrl', [
         self.defaultOptions = {
             max_size_x: 12, // @todo: ensure that max_size_x match number of cols
             // options used by widget_resize_dimensions extension
-
             cols: 12,
             margin_ratio: 0.1,
             resize_time: 500,
