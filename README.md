@@ -10,11 +10,15 @@ I aim to create here a basic but flexible dashboard engine, that is to be integr
 
 Credits:
 --------
-Built on top of Gridster Directive by Ryan Randall [twitter](http://twitter.com/pythondave)
-Google Group's [Discussion](https://groups.google.com/forum/#!searchin/angular/gridster/angular/EyuNUBFR2H4/hXbs7RjckzEJ)
-[Ryan Randall Plunk](http://plnkr.co/edit/6Kqg1u)
+* Built on top of Gridster Directive by Ryan Randall [twitter](http://twitter.com/pythondave)
 
-Also found on the web as a reference for using jquery-ui resizable with gridster: http://jsfiddle.net/maxgalbu/UfyjW/
+* Google Group's [Discussion](https://groups.google.com/forum/#!searchin/angular/gridster/angular/EyuNUBFR2H4/hXbs7RjckzEJ)
+
+* [Ryan Randall Plunk](http://plnkr.co/edit/6Kqg1u)
+
+* Integration of jQuery Resixzable based on this fiddle: http://jsfiddle.net/maxgalbu/UfyjW/
+
+* Discussion for Grid's responsiveness and other tweaks and fixes here: https://github.com/ducksboard/gridster.js/pull/77\
 
 
-Thank you for your work
+Thank you everyone for your work
