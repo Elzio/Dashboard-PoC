@@ -122,6 +122,7 @@ mod.controller('gridsterCtrl', [
 
 
         self.defaultOptions = {
+            shift_larger_widgets_down: false,
             max_size_x: 12, // @todo: ensure that max_size_x match number of cols
             // options used by widget_resize_dimensions extension
             cols: 12,
@@ -154,8 +155,8 @@ mod.controller('gridsterCtrl', [
 
         function calculateNewDimensions() {
             var containerWidth = self.$el.innerWidth();
-            var newMargin = (containerWidth * self.options.margin_ratio / (self.options.cols * 2));
-            var newSize = (containerWidth * ( 1 - self.options.margin_ratio) / self.options.cols);
+            var newMargin = Math.round(containerWidth * self.options.margin_ratio / (self.options.cols * 2));
+            var newSize = Math.round(containerWidth * ( 1 - self.options.margin_ratio) / self.options.cols);
             return [[newSize, newSize], [newMargin, newMargin]];
         }
 
@@ -169,7 +170,10 @@ mod.controller('gridsterCtrl', [
                 widget_base_dimensions: newDimensions[0],
                 widget_margins: newDimensions[1]
             });
+
             self.updateModel();
+
+
 
         };
 
@@ -179,7 +183,8 @@ mod.controller('gridsterCtrl', [
             self.resizeWidgetDimensions();
 
             // Debounce
-            $($window).on('resize', function() {
+            $($window).on('resize', function(evt) {
+                evt.preventDefault();
                 $window.clearTimeout(self.resizeTimer);
                 self.resizeTimer = $window.setTimeout(function() {
                     self.resizeWidgetDimensions();
