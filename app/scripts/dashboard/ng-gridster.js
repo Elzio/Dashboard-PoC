@@ -37,6 +37,7 @@
             this.baseY = this.$wrapper.offset().top;
 
             // HACK
+            // In addition to real implementation ->
             // Container width has to be undefined when gridster is first initialized
             // Draggable will then respond appropriately;
             this.container_width = null;
@@ -55,6 +56,7 @@
             d.getElementsByTagName('head')[0].appendChild(tag);
             tag.setAttribute('type', 'text/css');
 
+            // In addition to real implementation ->
             // Adding this attribute so we can clean them up later
             tag.setAttribute('generated-from', 'gridster');
 
@@ -85,6 +87,7 @@
                 this.resize_widget($widget);
             }, this));
 
+            // In addition to real implementation ->
             // Removing old gridster stylesheet(s) before regenerating
             $('head [generated-from="gridster"]:not(:last)').remove();
 
@@ -108,7 +111,7 @@ mod.controller('gridsterCtrl', [
     function($window, $scope, $element, $attrs, $timeout) {
         var self = this;
 
-
+        $window.g = this;
         self.$el = $($element);
         self.gridster = null;
 
@@ -123,12 +126,11 @@ mod.controller('gridsterCtrl', [
 
         self.defaultOptions = {
             shift_larger_widgets_down: false,
-            max_size_x: 12, // @todo: ensure that max_size_x match number of cols
+            max_size_x: 10, // @todo: ensure that max_size_x match number of cols
             // options used by widget_resize_dimensions extension
-            cols: 12,
-            margin_ratio: 0.1,
-            resize_time: 500,
-
+            cols: 10,
+            margin_ratio: 0.075,
+            resize_delay: 500,
             serialize_params: function($w, wgd) {
                 return {
                     col: wgd.col,
@@ -149,21 +151,21 @@ mod.controller('gridsterCtrl', [
             var $w = li.addClass('gs_w').appendTo(self.gridster.$el);
             self.gridster.$widgets = self.gridster.$widgets.add($w);
             self.gridster.register_widget($w).add_faux_rows(1).set_dom_grid_height();
-//            $w.fadeIn();
             $w.css('opacity', 1);
         };
 
-        function calculateNewDimensions() {
+        self.calculateNewDimensions = function() {
             var containerWidth = self.$el.innerWidth();
-            var newMargin = Math.round(containerWidth * self.options.margin_ratio / (self.options.cols * 2));
-            var newSize = Math.round(containerWidth * ( 1 - self.options.margin_ratio) / self.options.cols);
+            var newMargin = Math.floor(containerWidth * self.options.margin_ratio / (self.options.cols * 2));
+            var newSize = Math.floor(containerWidth * ( 1 - self.options.margin_ratio) / self.options.cols);
+
             return [[newSize, newSize], [newMargin, newMargin]];
         }
 
         self.resizeWidgetDimensions = function() {
 
             // Calculate widget dimension proportional to parent dimension.
-            var newDimensions = calculateNewDimensions();
+            var newDimensions = self.calculateNewDimensions();
 
             // Set new "fluid" widget dimensions
             self.gridster.resize_widget_dimensions({
@@ -183,12 +185,13 @@ mod.controller('gridsterCtrl', [
             self.resizeWidgetDimensions();
 
             // Debounce
+            // @todo -> Make use of debounce service here ?
             $($window).on('resize', function(evt) {
                 evt.preventDefault();
                 $window.clearTimeout(self.resizeTimer);
                 self.resizeTimer = $window.setTimeout(function() {
                     self.resizeWidgetDimensions();
-                }, self.options.resize_time);
+                }, self.options.resize_delay);
             });
 
         };
@@ -206,7 +209,6 @@ mod.controller('gridsterCtrl', [
                 });
             }else {
                 // Removed a widget
-//                self.resizeWidgetDimensions();
             }
 
         });
@@ -219,7 +221,7 @@ mod.controller('gridsterCtrl', [
             $li.fadeOut('slow', function() {
                 self.gridster.remove_widget($li, function() {
                     $scope.onremove({widget:widget});
-                    self.resizeWidgetDimensions();
+                    self.updateModel();
                 });
             });
         };
@@ -273,67 +275,72 @@ mod.directive('widget', [
                 }
 
                 scope.$on('gridReady', function(event) {
-                    var base_size = ctrl.gridster.options.widget_base_dimensions;
-                    var margins = ctrl.gridster.options.widget_margins;
 
                     var headerHeight =  $el.find('header').outerHeight();
                     var $content = $el.find('.content');
 
+                    $timeout( function() {
+                        $content.outerHeight($el.innerHeight() - headerHeight);
+                        $el.resizable({
+                            animate: false,
+//                            containment: ctrl.$el,
+                            autoHide: true,
+                            start: function(event, ui) {
+                                var newDimensions = ctrl.calculateNewDimensions();
+                                var base_size = newDimensions[0];
+                                var margins = newDimensions[1];
+                                console.log(newDimensions);
+                                element.resizable('option', 'grid', [(base_size[0]) + ((margins[0]) * 2), (base_size[1]) + ((margins[1]) * 2)]);
+                                console.log(element.resizable('option', 'grid'));
 
-                    $el.resizable({
-                        grid: [base_size[0] + (margins[0] * 2), base_size[1] + (margins[1] * 2)],
-                        animate: false,
-                        containment: ctrl.$el,
-                        autoHide: false,
-                        start: function(event, ui) {
-                            var base_size = ctrl.gridster.options.widget_base_dimensions;
-                            var margins = ctrl.gridster.options.widget_margins;
+                            },
+                            create: function(event, ui) {
+                                // @todo -> make a func for this
+                                $content.outerHeight($el.innerHeight() - headerHeight);
+                            },
+                            resize: function(event, ui) {
+                                // @todo -> make a func for this
+                                $content.outerHeight($el.innerHeight() - headerHeight);
 
-                            element.resizable('option', 'grid', [base_size[0] + (margins[0] * 2), base_size[1] + (margins[1] * 2)]);
-                        },
-                        resize: function(event, ui) {
-                            $content.outerHeight($el.innerHeight() - headerHeight);
-                        },
-                        stop: function(event, ui) {
-                            $content.outerHeight($el.innerHeight() - headerHeight);
 
-                            setTimeout(function() {
-                                sizeToGrid($el);
-                                ctrl.updateModel();
-                            }, 300);
-                        }
+                            },
+                            stop: function(event, ui) {
+                                $content.outerHeight($el.innerHeight() - headerHeight);
+
+                                $timeout(function() {
+                                    sizeToGrid($el);
+                                    ctrl.updateModel();
+                                    $content.outerHeight($el.innerHeight() - headerHeight);
+                                }, 300);
+                            }
+                        });
+
+
+
+                        $('.ui-resizable-handle, .no-drag, .disabled, [disabled]', $el).hover(function() {
+                            ctrl.gridster.disable();
+                        }, function() {
+                            ctrl.gridster.enable();
+                        });
                     });
 
 
-
-                    $('.ui-resizable-handle, .no-drag, .disabled, [disabled]', $el).hover(function() {
-                        ctrl.gridster.disable();
-                    }, function() {
-                        ctrl.gridster.enable();
-                    });
 
                 });
 
 
 
                 function sizeToGrid($el) {
-//                    ctrl.resizeWidgetDimensions()
+                    var newDimensions = ctrl.calculateNewDimensions();
+                    var base_size = newDimensions[0];
+                    var margins = newDimensions[1];
+                    var el_w = $el.width() + margins[0] * 2;
+                    var el_h = $el.height() + margins[1] * 2;
 
-                    var base_size = ctrl.gridster.options.widget_base_dimensions;
-                    var margins = ctrl.gridster.options.widget_margins;
-
-                    var w = ($el.width() - base_size[0]);
-                    var h = ($el.height() - base_size[1]);
+                    var grid_w = (el_w / (base_size[0] + margins[0] * 2));
+                    var grid_h = (el_h / (base_size[1] + margins[0] * 2));
 
 
-                    // Calculate both Width and Height in terms of number of rows and columns
-                    for (var grid_w = 1; w > 0; w -= ((base_size[0] + (margins[0] * 2)))) {
-                        grid_w++;
-                    }
-
-                    for (var grid_h = 1; h > 0; h -= ((base_size[1] + (margins[1] * 2)))) {
-                        grid_h++;
-                    }
 
                     // Remove inline styles added by resizable during resize,
                     // to give back "control" to gridster's stylesheets
@@ -346,8 +353,8 @@ mod.directive('widget', [
                     });
 
                     // Tell gridster to resize the widget through its own api
+                    ctrl.resizeWidgetDimensions();
                     ctrl.gridster.resize_widget($el, grid_w, grid_h);
-
                 }
             }
         };

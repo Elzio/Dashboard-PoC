@@ -33,15 +33,15 @@ mod.service('widgetService', [
             }
         ,
             {   title:'Widget #8',
-                grid: { row:6, col:1, sizex:2, sizey:1}
+                grid: { row:6, col:1, sizex:2, sizey:2}
             }
         ,
             {   title:'Widget #9',
-                grid: { row:6, col:1, sizex:1, sizey:1}
+                grid: { row:6, col:1, sizex:2, sizey:2}
             }
         ,
             {   title:'Widget #10',
-                grid: { row:6, col:1, sizex:1, sizey:1}
+                grid: { row:6, col:1, sizex:2, sizey:2}
             }
         ];
 
