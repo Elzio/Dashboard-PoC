@@ -1,6 +1,6 @@
-var mod = angular.module('o-utils');
+var utils = angular.module('o-utils');
 
-mod.directive('onRepeatLast', [
+utils.directive('onRepeatLast', [
     function() {
         return {
             restrict: 'A',

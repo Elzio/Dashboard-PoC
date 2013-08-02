@@ -5,19 +5,24 @@ mod.service('widgetService', [
 
         var data = [
             {   title:'Widget #1',
-                grid: { row:1, col:1, sizex:3, sizey:2}
+                grid: { row:1, col:1, sizex:3, sizey:2},
+                templateUrl: 'templates/tpl1.html'
+
             }
         ,
             {   title:'Widget #2',
-                grid: { row:1, col:1, sizex:3, sizey:2}
+                grid: { row:1, col:1, sizex:3, sizey:2},
+                templateUrl: 'templates/tpl1.html'
             }
         ,
             {   title:'Widget #3',
-                grid: { row:1, col:1, sizex:3, sizey:2}
+                grid: { row:1, col:1, sizex:3, sizey:2},
+                templateUrl: 'templates/tpl1.html'
             }
         ,
             {   title:'Widget #4',
-                grid: { row:1, col:1, sizex:2, sizey:4}
+                grid: { row:1, col:1, sizex:2, sizey:4},
+                templateUrl: 'templates/tpl1.html'
             }
         ,
             {   title:'Widget #5',

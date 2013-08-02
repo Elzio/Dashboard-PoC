@@ -1,6 +1,6 @@
-var mod = angular.module('o-utils');
+var utils = angular.module('o-utils');
 
-mod.service('uuid', [
+utils.service('uuid', [
     function() {
         // From: http://snowfinch.tumblr.com/post/3254029029/uuid-v4-js
         this.generate = function() {
