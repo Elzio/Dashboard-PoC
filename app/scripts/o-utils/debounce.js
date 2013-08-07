@@ -1,4 +1,4 @@
-var utils = angular.module('o-utils');
+var mod = angular.module('o-utils');
 
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
@@ -6,7 +6,7 @@ var utils = angular.module('o-utils');
 // leading edge, instead of the trailing.
 
 
-utils.factory('debounce', function($timeout, $q) {
+mod.factory('debounce', function($timeout, $q) {
     return function(func, wait, immediate) {
         var timeout;
         var deferred = $q.defer();

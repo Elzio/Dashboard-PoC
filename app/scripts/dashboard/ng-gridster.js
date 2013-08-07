@@ -249,6 +249,7 @@ mod.directive('gridster', [
                 elm.css('opacity', 0);
                 scope.initGrid = function() {
                     $timeout(function() {
+                        console.log('+++initGrid+++');
                         var $ul = ctrl.$el.find('ul');
                         ctrl.gridster = $ul.gridster(ctrl.options).data('gridster');
                         ctrl.hookWidgetResizer();

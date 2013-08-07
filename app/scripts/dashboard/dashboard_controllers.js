@@ -6,10 +6,13 @@ mod.controller('dashboardCtrl', [
     function($scope, widgetService) {
         var self = this;
 
-        $scope.widgets = widgetService.getWidgets();
+        $scope.$watch(function() {
+            return widgetService.getWidgets();
+        }, function(newData, oldData) {
+            if(newData === oldData || newData === undefined) return;
+            $scope.widgets = newData;
+        });
 
-
-        console.log('dashboardCtrl, widgets:', $scope.widgets);
 
         $scope.addWidget = function() {
             var fakeWidget = {

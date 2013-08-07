@@ -1,7 +1,7 @@
-var utils = angular.module('o-utils');
+var mod = angular.module('o-utils');
 
 
-utils.directive('preventWinScroll', [
+mod.directive('preventWinScroll', [
     '$window',
     function($window) {
         var scroll_handler = function(evt, d) {
