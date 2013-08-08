@@ -231,6 +231,10 @@ mod.controller('gridsterCtrl', [
                 });
             });
         };
+
+        $scope.scrolled = function() {
+            console.log('scrolled gridster', arguments);
+        }
     }
 ]);
 

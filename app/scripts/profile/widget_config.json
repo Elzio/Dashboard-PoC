@@ -4,7 +4,7 @@
     "total": 5,
     "result": [
         {
-            "title": "",
+            "title": "Widget1",
             "grid": {
                 "row": 1,
                 "col": 1,
@@ -14,11 +14,11 @@
             "id": 0,
             "guid": "227821c7-7893-43dd-831b-822f9ecdb074",
             "tracker": {},
-            "tempalteUrl": "templates/tpl1.html",
-            "dataSource": ""
+            "templateUrl": "templates/tpl1.html",
+            "data": ""
         },
         {
-            "title": "",
+            "title": "Widget2",
             "grid": {
                 "row": 1,
                 "col": 1,
@@ -28,11 +28,11 @@
             "id": 1,
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
             "tracker": {},
-            "tempalteUrl": "templates/tpl2.html",
+            "templateUrl": "templates/tpl2.html",
             "dataSource": ""
         },
         {
-            "title": "",
+            "title": "Widget3",
             "grid": {
                 "row": 1,
                 "col": 1,
@@ -42,11 +42,11 @@
             "id": 2,
             "guid": "85524adf-ce5b-4428-9256-eeb87c05efa3",
             "tracker": {},
-            "tempalteUrl": "templates/tpl3.html",
+            "templateUrl": "templates/tpl3.html",
             "dataSource": ""
         },
         {
-            "title": "",
+            "title": "Widget4",
             "grid": {
                 "row": 1,
                 "col": 1,
@@ -56,11 +56,11 @@
             "id": 3,
             "guid": "b6c7c92a-4f94-4c55-9cf9-d77475dcdb13",
             "tracker": {},
-            "tempalteUrl": "templates/tpl4.html",
+            "templateUrl": "templates/tpl4.html",
             "dataSource": ""
         },
         {
-            "title": "",
+            "title": "Widget5",
             "grid": {
                 "row": 1,
                 "col": 1,
@@ -70,7 +70,7 @@
             "id": 4,
             "guid": "11392735-490f-4cea-87f8-ce2214f0ae25",
             "tracker": {},
-            "tempalteUrl": "templates/tpl5.html",
+            "templateUrl": "templates/tpl5.html",
             "dataSource": ""
         }
     ]

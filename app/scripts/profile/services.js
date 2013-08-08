@@ -18,7 +18,7 @@ mod.factory('profileService', [
             ticker: promiseTracker('ticker')
         };
 
-        window.pt = promiseTracker;
+
         angular.forEach(this.trackers, function(tracker) {
            tracker
                .on('start', function(config, id) {
@@ -45,8 +45,6 @@ mod.factory('profileService', [
 
         function getKeyDates() {
             return $http.get('scripts/profile/mock_keyDates.json', {tracker: 'keyDates'});
-
-
         }
 
         function getTicker() {

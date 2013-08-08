@@ -21,7 +21,7 @@ mod.service('widgetService', [
         };
 
         this.addWidget = function ( widget ) {
-            data.push(widget);
+//            data.push(widget);
         }
 
     }

@@ -13,15 +13,12 @@ mod.controller('dashboardCtrl', [
             $scope.widgets = newData;
         });
 
-
         $scope.addWidget = function() {
             var fakeWidget = {
                title:'Widget #' + ($scope.widgets.length + 1),
                grid: {
-                   row: Math.floor(Math.random() + 1),
-                   col: Math.floor(Math.random() + 1),
-                   sizex: Math.floor(Math.random() * 2 + 1),
-                   sizey: Math.floor(Math.random() * 2 + 1)
+                   sizex: Math.floor(Math.random() * 4 + 1),
+                   sizey: Math.floor(Math.random() * 4 + 1)
                }
             };
             widgetService.addWidget(fakeWidget);

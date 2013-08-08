@@ -1,8 +1,8 @@
 <ul>
     <li on-repeat-last='$parent.initGrid()'
-        ng-repeat='this_widget in widgets'
-        widget='this_widget'
-        remove='removeWidget(this_widget)'
+        ng-repeat='widget in widgets'
+        widget='widget'
+        remove='removeWidget(widget)'
 
         data-widget-id='{{widget.id}}'
         data-col='{{widget.grid.col}}'
@@ -17,7 +17,12 @@
 
         <div class='content'
              prevent-win-scroll
+             infinite-scroll='scrolled()'
+             infinite-scroll-distance='50'
+             infinite-scroll-immediate-check='true'
              ng-include='widget.templateUrl'
-             onload='contentLoaded()' />
+             onload='contentLoaded()' >
+        </div>
+
     </li>
 </ul>
