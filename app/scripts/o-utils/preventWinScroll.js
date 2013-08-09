@@ -4,16 +4,19 @@ var mod = angular.module('o-utils');
 mod.directive('preventWinScroll', [
     '$window',
     function($window) {
-        var scroll_handler = function(evt, d) {
 
-            var scrollTop = evt.currentTarget.scrollTop;
-            var scrollHeight = evt.currentTarget.scrollHeight;
-            var height = $(event.currentTarget).innerHeight();
+        var scroll_handler = function(evt, d) {
+            var scrollHeight = evt.currentTarget.scrollHeight,
+                clientHeight = evt.currentTarget.clientHeight,
+                scrollTop =    evt.currentTarget.scrollTop,
+                remaining =    scrollHeight - (clientHeight + scrollTop),
+                shouldStop=    remaining <= 2;
 
             // No scrollbar present, do nothing
-            if(scrollHeight === height) { return; }
+            if(scrollHeight <= clientHeight) { return; }
 
-            if((d > 0 && scrollTop === 0) || (d < 0 && scrollTop >= scrollHeight - height)) {
+            if((d > 0 && scrollTop === 0) || (d<0 && shouldStop)) {
+                evt.stopPropagation();
                 evt.preventDefault();
             }
         };

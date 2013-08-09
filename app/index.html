@@ -10,7 +10,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <link rel="stylesheet" href="bower_components/jquery-ui/themes/black-tie/jquery-ui.css">
         <link rel="stylesheet" href="bower_components/jquery-ui/themes/black-tie/jquery-ui.min.css">
 
         <!-- build:css({.tmp,app}) styles/main.css -->
@@ -68,7 +67,8 @@
                         var checkWhenEnabled, handler, scrollDistance, scrollEnabled;
                         scope.$el = elem;
 
-                        scrollDistance = 0;
+                        // Using some error margin instead of 0, sometimes the remaining value will be close to 0, preventing the callback to fire
+                        scrollDistance = 5;
                         if (attrs.infiniteScrollDistance != null) {
                             scope.$watch(attrs.infiniteScrollDistance, function(value) {
                                 return scrollDistance = parseInt(value, 10);
@@ -87,12 +87,12 @@
                         }
                         handler = function() {
                             var scrollHeight = scope.$el[0].scrollHeight,
-                                    clientHeight = scope.$el[0].clientHeight,
-                                    scrollTop =    scope.$el[0].scrollTop,
-                                    remaining =    scrollHeight - (clientHeight + scrollTop),
-                                    shouldScroll = remaining <= scrollDistance;
-                            console.log('shouldSCroll? remaining: ', remaining, '->', shouldScroll);
+                                clientHeight = scope.$el[0].clientHeight,
+                                scrollTop =    scope.$el[0].scrollTop,
+                                remaining =    scrollHeight - (clientHeight + scrollTop),
+                                shouldScroll = remaining <= scrollDistance;
 
+                            console.log('shouldSScroll: ', shouldScroll);
                             if (shouldScroll && scrollEnabled) {
                                 if ($rootScope.$$phase) {
                                     return scope.$eval(attrs.infiniteScroll);
