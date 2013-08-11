@@ -92,7 +92,6 @@
                                 remaining =    scrollHeight - (clientHeight + scrollTop),
                                 shouldScroll = remaining <= scrollDistance;
 
-                            console.log('shouldSScroll: ', shouldScroll);
                             if (shouldScroll && scrollEnabled) {
                                 if ($rootScope.$$phase) {
                                     return scope.$eval(attrs.infiniteScroll);
@@ -146,9 +145,6 @@
     <script src="scripts/profile/services.js"></script>
     <script src="scripts/profile/controller.js"></script>
 
-
-
-
     <script src="scripts/o-utils/index.js"></script>
     <script src="scripts/o-utils/onRepeatLast.js"></script>
     <script src="scripts/o-utils/uuid.js"></script>
@@ -156,7 +152,7 @@
 
     <script src="scripts/dashboard/index.js"></script>
     <script src="scripts/dashboard/widget_service.js"></script>
-    <script src="scripts/dashboard/ng-gridster.js"></script>
+    <script src="scripts/dashboard/o-gridster.js"></script>
     <script src="scripts/dashboard/dashboard_controllers.js"></script>
 
 

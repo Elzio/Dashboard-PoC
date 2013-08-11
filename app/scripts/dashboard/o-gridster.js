@@ -245,11 +245,13 @@ mod.directive('gridster', [
             restrict: 'AC',
             scope: {
                 widgets: '=',
-                onremove: '&'
+                onremove: '&',
+                dataSource: '='
             },
             templateUrl: 'templates/gridster.html',
             controller: 'gridsterCtrl',
             link: function(scope, elm, attrs, ctrl) {
+                console.log('---', scope.dataSource);
                 elm.css('opacity', 0);
                 scope.initGrid = function() {
                     $timeout(function() {
@@ -270,13 +272,20 @@ mod.directive('gridster', [
 mod.directive('widget', [
     '$timeout',
     'uuid',
-    function($timeout, uuid) {
+    'profileService',
+    function($timeout, uuid, profileService) {
         return {
             restrict: 'A',
             require: '^gridster',
             scope: {
                 remove: '&',
-                widget: '='
+                widget: '=',
+                dataSource: '='
+            },
+            controller: function($scope, $element, $attrs, $controller) {
+                console.log('widgetCtrl: widget->', $scope.widget);
+
+//                $scope.data = $scope.dataSource.getData($scope.widget.dataSource);
             },
             link: function(scope, element, attrs, ctrl) {
 

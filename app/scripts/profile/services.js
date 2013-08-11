@@ -2,8 +2,10 @@ var mod = angular.module('Profile');
 
 mod.factory('profileService', [
     '$http',
+    '$parse',
     'promiseTracker',
-    function($http, promiseTracker) {
+
+    function($http, $parse, promiseTracker) {
         var self = this;
         this.demographics = {};
         this.directDeposit = {};
@@ -28,6 +30,12 @@ mod.factory('profileService', [
                    //console.log('tracker', id,  'done ->', response);
                });
         });
+
+        function getData(source) {
+            var methodName = 'get' + source;
+            console.log('getData:', $parse(methodName));
+
+        }
 
         function getHugeFile() {
             return $http.get('scripts/profile/mock_huge.json', {tracker: 'huge'});
@@ -59,6 +67,7 @@ mod.factory('profileService', [
                 getDirectDeposit: getDirectDeposits,
                 getKeyDates: getKeyDates,
                 getTicker: getTicker,
+                getData: getData,
                 trackers: self.trackers
             };
         }
