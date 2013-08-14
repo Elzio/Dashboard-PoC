@@ -15,7 +15,7 @@
             "guid": "227821c7-7893-43dd-831b-822f9ecdb074",
             "tracker": {},
             "templateUrl": "templates/tpl1.html",
-            "dataSource": "demographics"
+            "dataSource": "Demographics"
         },
         {
             "title": "Widget2",

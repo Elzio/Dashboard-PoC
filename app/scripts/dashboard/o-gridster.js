@@ -231,10 +231,6 @@ mod.controller('gridsterCtrl', [
                 });
             });
         };
-
-        $scope.scrolled = function() {
-            console.log('scrolled gridster', arguments);
-        }
     }
 ]);
 
@@ -246,16 +242,14 @@ mod.directive('gridster', [
             scope: {
                 widgets: '=',
                 onremove: '&',
-                dataSource: '='
+                datasource: '&'
             },
             templateUrl: 'templates/gridster.html',
             controller: 'gridsterCtrl',
             link: function(scope, elm, attrs, ctrl) {
-                console.log('---', scope.dataSource);
                 elm.css('opacity', 0);
                 scope.initGrid = function() {
                     $timeout(function() {
-                        console.log('+++initGrid+++');
                         var $ul = ctrl.$el.find('ul');
                         ctrl.gridster = $ul.gridster(ctrl.options).data('gridster');
                         ctrl.hookWidgetResizer();
@@ -280,12 +274,15 @@ mod.directive('widget', [
             scope: {
                 remove: '&',
                 widget: '=',
-                dataSource: '='
+                datasource: '='
             },
-            controller: function($scope, $element, $attrs, $controller) {
-                console.log('widgetCtrl: widget->', $scope.widget);
+            controller: function($scope, $element, $attrs, $controller, profileService) {
+                console.log('datasource',$scope.datasource());
 
-//                $scope.data = $scope.dataSource.getData($scope.widget.dataSource);
+                $scope.scrolled = function() {
+                    console.log('scrolled widget');
+                };
+
             },
             link: function(scope, element, attrs, ctrl) {
 
