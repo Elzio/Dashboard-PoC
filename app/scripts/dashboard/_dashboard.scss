@@ -16,10 +16,6 @@ gridster,
         li {
             list-style: none;
             overflow: hidden;
-
-
-
-
             &.preview-holder {
                 background: rgba(0,0,0,0.5);
             }
@@ -42,12 +38,6 @@ gridster,
                 -ms-transform:  perspective(500px);
                 transform: perspective(500px);
 
-                //-webkit-transition: -webkit-transform 0.5s ease !important;
-                //-moz-transition: -moz-transform 0.5s ease !important;
-                //-o-transition: -o-transform 0.5s ease !important;
-                //-ms-transition: -ms-transform 0.5s ease !important;
-                //transition: transform 0.5s ease !important;
-
                 background: gray;
                 cursor: pointer;
 
@@ -57,7 +47,16 @@ gridster,
                     h1,h2,h3,h4,h5 {
                         display: inline-block;
                         margin-top: 0;
+                        margin-bottom: 0;
                     }
+
+                    widgetnav {
+                        border: 1px solid red;
+                        select {
+                            transition: width 0.2s ease-out;
+                        }
+                    }
+
                 }
             }
 

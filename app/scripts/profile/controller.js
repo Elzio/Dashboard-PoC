@@ -3,9 +3,8 @@ var mod = angular.module('Profile');
 
 mod.controller('ProfileCtrl', ['$scope', 'profileService',
     function ($scope, profileService) {
-        $scope.testShit = "someshit";
         $scope.profileService = new profileService();
-        $scope.trackers = $scope.profileService.trackers;
+
     }
 ]);
 
@@ -28,9 +27,12 @@ mod.controller('tpl2_ctrl', [
     '$timeout',
     function($scope, $timeout) {
         $scope.data = {};
-        $scope.datasource().getKeyDates().then(function(results) {
+        $scope.tracker = $scope.datasource().trackers.huge;
+
+        $scope.datasource().getHugeFile().then(function(results) {
             $scope.data = results.data;
         });
+
 
 
     }

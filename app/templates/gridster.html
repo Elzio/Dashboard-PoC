@@ -13,7 +13,10 @@
 
         <header>
             <h3>{{widget.title}}</h3>
-            <div class="btn btn-medium close" ng-click="remove($event)">&times;</div>
+
+            <div widgetnav></div>
+
+            <!--<div class="btn btn-medium close" ng-click="remove($event)">&times;</div>-->
         </header>
 
         <div class='content'
@@ -21,7 +24,7 @@
              infinite-scroll='scrolled()'
              infinite-scroll-distance='50'
              infinite-scroll-immediate-check='true'
-             ng-include='widget.templateUrl'
+             ng-include='widget.views[0].templateUrl'
              onload='contentLoaded()' >
         </div>
 

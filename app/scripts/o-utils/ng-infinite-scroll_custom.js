@@ -31,7 +31,7 @@ mod.directive('infiniteScroll', [
                     });
                 }
                 handler = function() {
-                    console.log('handler', scope);
+
                     var scrollHeight = scope.$el[0].scrollHeight,
                         clientHeight = scope.$el[0].clientHeight,
                         scrollTop =    scope.$el[0].scrollTop,

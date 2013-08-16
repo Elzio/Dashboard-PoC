@@ -1,7 +1,7 @@
 <div ng-controller='tpl2_ctrl'>
     <h1>tpl2</h1>
-    <div ng-hide="trackers.keyDates.active()">Done {{keyDates}}</div>
-    <div>
+    <h3 ng-show="tracker.active()">Loading...</h3>
+    <div ng-hide="tracker.active()">
         --
         {{data}}
         --

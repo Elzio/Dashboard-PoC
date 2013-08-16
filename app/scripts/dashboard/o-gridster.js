@@ -277,10 +277,9 @@ mod.directive('widget', [
                 datasource: '='
             },
             controller: function($scope, $element, $attrs, $controller, profileService) {
-                console.log('datasource',$scope.datasource());
 
                 $scope.scrolled = function() {
-                    console.log('scrolled widget');
+                    console.log('--scrolled widget');
                 };
 
             },
@@ -293,6 +292,8 @@ mod.directive('widget', [
                 scope.sizeContent = function() {
                     var $content = element.find('.content');
                     var headerHeight= element.find('header').outerHeight();
+
+                    scope.$broadcast('resize');
 
                     $timeout(function() {
                         $content.innerHeight(element.innerHeight() - headerHeight);
@@ -379,6 +380,65 @@ mod.directive('widget', [
                     ctrl.resizeWidgetDimensions();
                     ctrl.gridster.resize_widget(element, grid_w, grid_h);
                 }
+            }
+        };
+    }
+]);
+
+mod.directive('widgetnav', [
+    '$timeout',
+    function($timeout){
+        return {
+            restrict: 'A',
+            require: '^widget',
+            templateUrl: 'templates/widgetnav.html',
+            link: function(scope, elm, attrs) {
+                if(scope.widget.views.length <= 1) {
+                    elm.remove();
+                    return;
+                }
+
+                var parent, selectBox, buttonGroup, titleWidth, headerWidth, availableWidth;
+
+
+                parent = elm.parent();
+                selectBox = elm.find('select').css('margin', '0 0 5px 0');
+                buttonGroup = elm.find('.btn-group');
+
+                scope.selectedTab = scope.widget.views[0];
+
+
+                function sizeHeader() {
+                    titleWidth = elm.siblings().filter(':header').width();
+                    headerWidth = parent.innerWidth();
+                    availableWidth = headerWidth - titleWidth - 50;
+
+                    scope.widget.showBtns = true;
+
+                    if(buttonGroup.outerWidth() < availableWidth) {
+                        selectBox.width(availableWidth);
+                        scope.widget.showBtns = false;
+                    }
+                }
+
+                $timeout( sizeHeader, 500 );
+
+                parent.css({
+                    position: 'relative'
+                });
+
+                elm.css({
+                    top: '50%',
+                    right: '10px',
+                    marginTop: -selectBox.height() / 2  + 'px',
+                    position: 'absolute'
+                });
+
+                scope.$on('resize', function() {
+                    $timeout(sizeHeader, 500);
+                });
+
+
             }
         };
     }

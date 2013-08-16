@@ -1,0 +1,14 @@
+<ul class="btn-group" ng-show="widget.showBtns">
+    <li class="btn btn-mini"
+        ng-repeat="tab in widget.views"
+        ng-click="setTab(tab)"
+        ng-disabled="loaded == false">
+        {{tab.title}}
+    </li>
+</ul>
+
+<select ng-model="selectedTab"
+        ng-hide="widget.showBtns"
+        ng-options="tab as tab.title for tab in widget.views"
+        ng-style="widget.selectStyle">
+</select>

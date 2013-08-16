@@ -1,77 +1,62 @@
-{
-    "id": 1,
+{   "id": 1,
     "jsonrpc": "2.0",
     "total": 5,
     "result": [
         {
-            "title": "Widget1",
+            "title": "Group1",
             "grid": {
-                "row": 1,
                 "col": 1,
-                "sizex": 4,
-                "sizey": 2
+                "row": 1,
+                "sizex": 5,
+                "sizey": 4
             },
             "id": 0,
             "guid": "227821c7-7893-43dd-831b-822f9ecdb074",
-            "tracker": {},
-            "templateUrl": "templates/tpl1.html",
-            "dataSource": "Demographics"
+            "views": [
+                {   "templateUrl": "templates/tpl1.html",
+                    "title": "Group1 - View1"
+                },
+                {   "templateUrl": "templates/tpl2.html",
+                    "title": "Group2 - View2"
+                }
+            ]
         },
         {
-            "title": "Widget2",
+            "title": "Group2",
             "grid": {
-                "row": 1,
                 "col": 1,
-                "sizex": 6,
-                "sizey": 5
+                "row": 1,
+                "sizex": 5,
+                "sizey": 4
             },
             "id": 1,
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
             "tracker": {},
-            "templateUrl": "templates/tpl2.html",
-            "dataSource": ""
+            "views": [
+                {   "templateUrl": "templates/tpl1.html",
+                    "title": "Group2 - View1"
+                },
+                {   "templateUrl": "templates/tpl2.html",
+                    "title": "Group2 - View2"
+                }
+            ]
         },
         {
-            "title": "Widget3",
+            "title": "Group3",
             "grid": {
-                "row": 1,
                 "col": 1,
-                "sizex": 4,
-                "sizey": 1
-            },
-            "id": 2,
-            "guid": "85524adf-ce5b-4428-9256-eeb87c05efa3",
-            "tracker": {},
-            "templateUrl": "templates/tpl3.html",
-            "dataSource": ""
-        },
-        {
-            "title": "Widget4",
-            "grid": {
                 "row": 1,
-                "col": 1,
-                "sizex": 4,
-                "sizey": 2
-            },
-            "id": 3,
-            "guid": "b6c7c92a-4f94-4c55-9cf9-d77475dcdb13",
-            "tracker": {},
-            "templateUrl": "templates/tpl4.html",
-            "dataSource": ""
-        },
-        {
-            "title": "Widget5",
-            "grid": {
-                "row": 1,
-                "col": 1,
-                "sizex": 10,
+                "sizex": 5,
                 "sizey": 4
             },
-            "id": 4,
-            "guid": "11392735-490f-4cea-87f8-ce2214f0ae25",
+            "id": 1,
+            "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
             "tracker": {},
-            "templateUrl": "templates/tpl5.html",
-            "dataSource": ""
+            "views": [
+                {   "templateUrl": "templates/tpl1.html",
+                    "title": "Group3 - View1"
+                }
+            ]
         }
     ]
 }
