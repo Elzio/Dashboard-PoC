@@ -50,8 +50,7 @@ gridster,
                         margin-bottom: 0;
                     }
 
-                    widgetnav {
-                        border: 1px solid red;
+                    [widgetnav] {
                         select {
                             transition: width 0.2s ease-out;
                         }

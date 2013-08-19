@@ -277,6 +277,9 @@ mod.directive('widget', [
                 datasource: '='
             },
             controller: function($scope, $element, $attrs, $controller, profileService) {
+                this.updateTemplate = function(templateUrl) {
+                    $scope.widget.currentTemplate = templateUrl;
+                }
 
                 $scope.scrolled = function() {
                     console.log('--scrolled widget');
@@ -392,7 +395,7 @@ mod.directive('widgetnav', [
             restrict: 'A',
             require: '^widget',
             templateUrl: 'templates/widgetnav.html',
-            link: function(scope, elm, attrs) {
+            link: function(scope, elm, attrs, ctrl) {
                 if(scope.widget.views.length <= 1) {
                     elm.remove();
                     return;
@@ -415,7 +418,7 @@ mod.directive('widgetnav', [
 
                     scope.widget.showBtns = true;
 
-                    if(buttonGroup.outerWidth() < availableWidth) {
+                    if(buttonGroup.outerWidth() > availableWidth) {
                         selectBox.width(availableWidth);
                         scope.widget.showBtns = false;
                     }
@@ -437,6 +440,14 @@ mod.directive('widgetnav', [
                 scope.$on('resize', function() {
                     $timeout(sizeHeader, 500);
                 });
+
+                scope.$watch('selectedTab', function(newVal, oldVal){
+                    ctrl.updateTemplate(newVal.templateUrl);
+                });
+
+                scope.setTab = function(tab) {
+                    scope.selectedTab = tab;
+                }
 
 
             }
