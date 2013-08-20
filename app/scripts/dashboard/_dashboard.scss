@@ -53,6 +53,11 @@ gridster,
                     [widgetnav] {
                         select {
                             transition: width 0.2s ease-out;
+
+                        }
+
+                        .btn-group {
+                            margin-top: 4px;
                         }
                     }
 

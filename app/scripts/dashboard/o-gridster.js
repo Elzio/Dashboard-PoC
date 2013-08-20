@@ -326,7 +326,6 @@ mod.directive('widget', [
 
                             },
                             create: function(event, ui) {
-//                                scope.sizeContent();
                             },
                             resize: function(event, ui) {
                                 scope.sizeContent();
@@ -344,10 +343,12 @@ mod.directive('widget', [
 
 
 
-                        $('.ui-resizable-handle, .no-drag, .disabled, [disabled]', element).hover(function() {
+                        $('.ui-resizable-handle, .no-drag, .content, .disabled, [disabled]', element).hover(function() {
                             ctrl.gridster.disable();
+                            element.css('cursor', 'default');
                         }, function() {
                             ctrl.gridster.enable();
+                            element.css('cursor', '');
                         });
                     });
 

@@ -1,4 +1,4 @@
-<ul class="btn-group" ng-show="widget.showBtns">
+<ul class="btn-group no-drag" ng-show="widget.showBtns">
     <li class="btn btn-mini"
         ng-repeat="tab in widget.views"
         ng-click="setTab(tab)"
@@ -7,7 +7,8 @@
     </li>
 </ul>
 
-<select ng-model="selectedTab"
+<select class="no-drag"
+        ng-model="selectedTab"
         ng-show="!widget.showBtns"
         ng-options="tab as tab.title for tab in widget.views"
         ng-style="widget.selectStyle">
