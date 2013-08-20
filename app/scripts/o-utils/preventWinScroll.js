@@ -12,8 +12,8 @@ mod.directive('preventWinScroll', [
                 remaining =    scrollHeight - (clientHeight + scrollTop),
                 shouldStop=    remaining <= 2;
 
-            // No scrollbar present, do nothing
-            if(scrollHeight <= clientHeight) { return; }
+            // No scrollbar present, or scrolled horizontally; do nothing
+            if(scrollHeight <= clientHeight || evt.wheelDeltaX != 0) { return; }
 
             if((d > 0 && scrollTop === 0) || (d<0 && shouldStop)) {
                 evt.stopPropagation();

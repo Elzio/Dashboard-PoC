@@ -27,13 +27,10 @@ mod.controller('tpl2_ctrl', [
     '$timeout',
     function($scope, $timeout) {
         $scope.data = {};
-        $scope.tracker = $scope.datasource().trackers.huge;
+        $scope.tracker = $scope.datasource().trackers.keyDates;
 
-        $scope.datasource().getHugeFile().then(function(results) {
+        $scope.datasource().getKeyDates().then(function(results) {
             $scope.data = results.data;
         });
-
-
-
     }
 ]);

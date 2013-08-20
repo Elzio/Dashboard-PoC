@@ -278,6 +278,7 @@ mod.directive('widget', [
             },
             controller: function($scope, $element, $attrs, $controller, profileService) {
                 this.updateTemplate = function(templateUrl) {
+
                     $scope.widget.currentTemplate = templateUrl;
                 }
 
@@ -293,21 +294,32 @@ mod.directive('widget', [
                 }
 
                 scope.sizeContent = function() {
+
                     var $content = element.find('.content');
                     var headerHeight= element.find('header').outerHeight();
 
-                    scope.$broadcast('resize');
 
-                    $timeout(function() {
-                        $content.innerHeight(element.innerHeight() - headerHeight);
-                    }, 300);
+                    $content.fadeOut('fast', function(){
+                        scope.$broadcast('resize');
+                        $timeout(function() {
+                            $content.outerHeight(element.innerHeight() - headerHeight);
+                            $content.fadeIn();
+                        }, 300);
+                    });
+
 
                 };
 
-                scope.contentLoaded = function() {
+                scope.$on('$includeContentRequested', function(evt) {
+                    var $content = element.find('.content');
+                    $content.fadeOut();
 
+                });
+
+                scope.$on('$includeContentLoaded', function() {
                     scope.sizeContent();
-                };
+                });
+
 
                 scope.$on('gridReady', function(event) {
 
@@ -399,8 +411,8 @@ mod.directive('widgetnav', [
             link: function(scope, elm, attrs, ctrl) {
                 if(scope.widget.views.length <= 1) {
                     elm.remove();
-                    return;
                 }
+
 
                 var parent, selectBox, buttonGroup, titleWidth, headerWidth, availableWidth;
 
@@ -409,11 +421,12 @@ mod.directive('widgetnav', [
                 selectBox = elm.find('select').css('margin', '0 0 5px 0');
                 buttonGroup = elm.find('.btn-group');
 
-                scope.selectedTab = scope.widget.views[0];
+                scope.selectedView = scope.widget.views[0];
 
 
                 function sizeHeader() {
-                    titleWidth = elm.siblings().filter(':header').width();
+
+                    titleWidth = elm.siblings().filter(':header').outerWidth();
                     headerWidth = parent.innerWidth();
                     availableWidth = headerWidth - titleWidth - 50;
 
@@ -423,6 +436,7 @@ mod.directive('widgetnav', [
                         selectBox.width(availableWidth);
                         scope.widget.showBtns = false;
                     }
+                    elm.fadeIn();
                 }
 
                 $timeout( sizeHeader, 500 );
@@ -434,7 +448,7 @@ mod.directive('widgetnav', [
                 elm.css({
                     top: '50%',
                     right: '10px',
-                    marginTop: -selectBox.height() / 2  + 'px',
+                    marginTop: -selectBox.outerHeight() / 2  + 'px',
                     position: 'absolute'
                 });
 
@@ -442,12 +456,12 @@ mod.directive('widgetnav', [
                     $timeout(sizeHeader, 500);
                 });
 
-                scope.$watch('selectedTab', function(newVal, oldVal){
+                scope.$watch('selectedView', function(newVal, oldVal){
                     ctrl.updateTemplate(newVal.templateUrl);
                 });
 
-                scope.setTab = function(tab) {
-                    scope.selectedTab = tab;
+                scope.setView = function(view) {
+                    scope.selectedView = view;
                 }
 
 

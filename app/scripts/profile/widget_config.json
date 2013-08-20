@@ -54,7 +54,7 @@
             "tracker": {},
             "views": [
                 {   "templateUrl": "templates/tpl1.html",
-                    "title": "Group3 - View1"
+                    "title": "Group2 - View1"
                 }
             ]
         }

@@ -1,0 +1,13 @@
+{
+    "admin": {
+        "group1_view1": {
+            "access": true,
+            "edit": true
+        },
+        "group1_view2": {
+            "access": true,
+            "edit": true
+        }
+
+    }
+}
