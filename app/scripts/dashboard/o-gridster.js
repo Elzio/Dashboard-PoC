@@ -176,7 +176,7 @@ mod.controller('gridsterCtrl', [
             });
 
             self.gridster.$widgets.each(function(i, w) {
-                angular.element(w).scope().sizeContent();
+//                angular.element(w).scope().sizeContent();
             });
 
             self.updateModel();
@@ -296,6 +296,7 @@ mod.directive('widget', [
                 scope.sizeContent = function() {
 
                     var $content = element.find('.content');
+                    console.log($content);
                     var headerHeight= element.find('header').outerHeight();
 
 
@@ -309,16 +310,6 @@ mod.directive('widget', [
 
 
                 };
-
-                scope.$on('$includeContentRequested', function(evt) {
-                    var $content = element.find('.content');
-                    $content.fadeOut();
-
-                });
-
-                scope.$on('$includeContentLoaded', function() {
-                    scope.sizeContent();
-                });
 
 
                 scope.$on('gridReady', function(event) {
@@ -338,14 +329,11 @@ mod.directive('widget', [
 
                             },
                             create: function(event, ui) {
-                            },
-                            resize: function(event, ui) {
                                 scope.sizeContent();
                             },
+
                             stop: function(event, ui) {
                                 scope.sizeContent();
-
-
                                 $timeout(function() {
                                     sizeToGrid(element);
                                     ctrl.updateModel();
