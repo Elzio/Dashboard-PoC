@@ -3,7 +3,8 @@ var mod = angular.module('o-dashboard');
 mod.controller('dashboardCtrl', [
     '$scope',
     'widgetService',
-    function($scope, widgetService) {
+    'permissions_manager',
+    function($scope, widgetService, permissions_manager) {
         var self = this;
 
         $scope.$watch(function() {
@@ -11,6 +12,8 @@ mod.controller('dashboardCtrl', [
         }, function(newData, oldData) {
             if(newData === oldData || newData === undefined) return;
             $scope.widgets = newData;
+
+
         });
 
         $scope.addWidget = function() {

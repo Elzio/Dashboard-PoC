@@ -13,10 +13,12 @@
             "id": 0,
             "guid": "227821c7-7893-43dd-831b-822f9ecdb074",
             "views": [
-                {   "templateUrl": "templates/tpl1.html",
+                {   "id": "group1_view1",
+                    "templateUrl": "templates/tpl1.html",
                     "title": "Group1 - View1"
                 },
-                {   "templateUrl": "templates/tpl2.html",
+                {   "id": "group1_view2",
+                    "templateUrl": "templates/tpl2.html",
                     "title": "Group2 - View2"
                 }
             ]
@@ -33,10 +35,12 @@
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
             "tracker": {},
             "views": [
-                {   "templateUrl": "templates/tpl1.html",
+                {   "id": "group2_view1",
+                    "templateUrl": "templates/tpl1.html",
                     "title": "Group2 - View1"
                 },
-                {   "templateUrl": "templates/tpl2.html",
+                {   "id": "group2_view2",
+                    "templateUrl": "templates/tpl2.html",
                     "title": "Group2 - View2"
                 }
             ]
@@ -53,7 +57,8 @@
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
             "tracker": {},
             "views": [
-                {   "templateUrl": "templates/tpl1.html",
+                {   "id": "group3_view1",
+                    "templateUrl": "templates/tpl1.html",
                     "title": "Group2 - View1"
                 }
             ]

@@ -2,6 +2,7 @@
 var mod = angular.module('DashboardPoCApp', [
     'ajoslin.promise-tracker',
     'infinite-scroll',
+    'permissions_manager',
     'o-utils',
     'o-dashboard',
     'Profile'

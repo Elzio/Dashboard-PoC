@@ -1,13 +1,58 @@
 {
     "admin": {
-        "group1_view1": {
-            "access": true,
-            "edit": true
-        },
-        "group1_view2": {
-            "access": true,
-            "edit": true
-        }
+        "widgets": {
+            "group1_view1": {
+                "access": true,
+                "edit_content": true
+            },
 
+            "group1_view2": {
+                "access": true,
+                "edit_content": true
+            },
+
+            "group2_view1": {
+                "access": true,
+                "edit_content": false
+            },
+
+            "group2_view2": {
+                "access": true,
+                "edit_content": true
+            },
+
+            "group3_view1": {
+                "access": true,
+                "edit_content": true
+            }
+        }
+    },
+    "resticted_user": {
+        "widgets": {
+            "group1_view1": {
+                "access": true,
+                "edit_content": false
+            },
+
+            "group1_view2": {
+                "access": true,
+                "edit_content": false
+            },
+
+            "group2_view1": {
+                "access": false,
+                "edit_content": false
+            },
+
+            "group2_view2": {
+                "access": false,
+                "edit_content": false
+            },
+
+            "group3_view1": {
+                "access": false,
+                "edit_content": false
+            }
+        }
     }
 }

@@ -244,7 +244,7 @@ mod.directive('gridster', [
                 onremove: '&',
                 datasource: '&'
             },
-            templateUrl: 'templates/gridster.html',
+            templateUrl: 'templates/dashboard.html',
             controller: 'gridsterCtrl',
             link: function(scope, elm, attrs, ctrl) {
                 elm.css('opacity', 0);
@@ -296,7 +296,6 @@ mod.directive('widget', [
                 scope.sizeContent = function() {
 
                     var $content = element.find('.content');
-                    console.log($content);
                     var headerHeight= element.find('header').outerHeight();
 
 
