@@ -110,10 +110,10 @@ mod.controller('gridsterCtrl', [
     '$element',
     '$attrs',
     '$timeout',
-    function($window, $scope, $element, $attrs, $timeout) {
+    'debounce',
+    function($window, $scope, $element, $attrs, $timeout, debounce) {
         var self = this;
 
-        $window.g = this;
         self.$el = $($element);
         self.gridster = null;
 
@@ -180,9 +180,6 @@ mod.controller('gridsterCtrl', [
             });
 
             self.updateModel();
-
-
-
         };
 
 
@@ -190,16 +187,14 @@ mod.controller('gridsterCtrl', [
 
             self.resizeWidgetDimensions();
 
-            // Debounce
-            // @todo -> Make use of debounce service here ?
-            $($window).on('resize', function(evt) {
-                evt.preventDefault();
-                $window.clearTimeout(self.resizeTimer);
-                self.resizeTimer = $window.setTimeout(function() {
-                    self.resizeWidgetDimensions();
-                }, self.options.resize_delay);
-            });
 
+            var handler = function(evt) {
+                evt.preventDefault();
+                self.resizeWidgetDimensions();
+            };
+
+            var debounced_handler = debounce(handler, self.options.resize_delay, false);
+            $($window).on('resize', debounced_handler);
         };
 
 
@@ -247,17 +242,16 @@ mod.directive('gridster', [
             templateUrl: 'templates/dashboard.html',
             controller: 'gridsterCtrl',
             link: function(scope, elm, attrs, ctrl) {
-                elm.css('opacity', 0);
-                scope.initGrid = function() {
-                    $timeout(function() {
-                        var $ul = ctrl.$el.find('ul');
-                        ctrl.gridster = $ul.gridster(ctrl.options).data('gridster');
-                        ctrl.hookWidgetResizer();
-                        scope.$broadcast('gridReady');
-                        ctrl.resizeWidgetDimensions();
-                        elm.css('opacity', 1);
-                    });
-                };
+
+                $timeout(function() {
+                    var $ul = ctrl.$el.find('ul');
+                    ctrl.gridster = $ul.gridster(ctrl.options).data('gridster');
+                    ctrl.hookWidgetResizer();
+                    scope.$broadcast('gridReady');
+                    ctrl.resizeWidgetDimensions();
+                    elm.css('opacity', 1);
+                });
+
             }
         };
     }
@@ -343,6 +337,7 @@ mod.directive('widget', [
 
 
                         $('.ui-resizable-handle, .no-drag, .content, .disabled, [disabled]', element).hover(function() {
+
                             ctrl.gridster.disable();
                             element.css('cursor', 'default');
                         }, function() {

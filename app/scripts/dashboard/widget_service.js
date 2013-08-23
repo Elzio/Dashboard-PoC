@@ -2,8 +2,8 @@ var mod = angular.module('o-dashboard');
 
 mod.service('widgetService', [
     '$http',
-    '$q',
-    function($http, $q) {
+    'permissions_manager',
+    function($http, permissions_manager) {
         var self = this;
 
         $http.get('scripts/profile/widget_config.json').then(function(resp) {

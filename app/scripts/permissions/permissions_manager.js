@@ -15,20 +15,25 @@ mod.factory('permissions_manager', [
             });
         }
 
-        function getPermissions(path) {
+        function getPermissions(path, action) {
             if(path) {
-                return steeltoe(self.user_permissions).get(path);
+                console.log('+', self.user_permissions, path, action)
+                  var allowed = steeltoe(self.user_permissions).get(path)[action];
+                console.log(path,allowed);
+                return allowed;
+//                return steeltoe(self.user_permissions).get(path)[action];
             }else {
                 return self.user_permissions;
             }
         }
 
-        function permissionCheck(id, action) {
-            return steeltoe(self.user_permissions).get(id)[action];
-        }
+        function checkPermission(id, action) {
+            console.log(steeltoe({key1:{key2:1}}).get('key1'));
 
+        }
         return {
-            getPermissions: getPermissions
+            getPermissions: getPermissions,
+            checkPermission: checkPermission
         }
     }
 ]);

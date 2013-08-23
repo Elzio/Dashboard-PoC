@@ -11,7 +11,18 @@ mod.controller('dashboardCtrl', [
             return widgetService.getWidgets();
         }, function(newData, oldData) {
             if(newData === oldData || newData === undefined) return;
-            $scope.widgets = newData;
+            $scope.widgets = _.map(newData, function(widget) {
+                if(widget.views.length > 1) {
+                    var allowedViews = [];
+                    _.each(widget.views, function(view) {
+
+                    });
+                }
+
+
+                return widget;
+
+            });
 
 
         });

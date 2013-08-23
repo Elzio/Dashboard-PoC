@@ -31,24 +31,25 @@ mod.directive('infiniteScroll', [
                     });
                 }
                 handler = function() {
-
                     var scrollHeight = scope.$el[0].scrollHeight,
                         clientHeight = scope.$el[0].clientHeight,
                         scrollTop =    scope.$el[0].scrollTop,
                         remaining =    scrollHeight - (clientHeight + scrollTop),
                         shouldScroll = remaining <= scrollDistance;
 
-                    if (shouldScroll && scrollEnabled) {
-                        if ($rootScope.$$phase) {
-                            return debounce(scope.$eval(attrs.infiniteScroll));
-                        } else {
+                        if (shouldScroll && scrollEnabled) {
+                            if ($rootScope.$$phase) {
+                                return scope.$eval(attrs.infiniteScroll);
+                            } else {
 
-                            return scope.$apply(attrs.infiniteScroll);
+                                return scope.$apply(attrs.infiniteScroll);
+                            }
+                        } else if (shouldScroll) {
+                            return checkWhenEnabled = true;
                         }
-                    } else if (shouldScroll) {
-                        return checkWhenEnabled = true;
-                    }
                 };
+
+
 
                 handler_debounced = debounce(handler, 250, false);
 

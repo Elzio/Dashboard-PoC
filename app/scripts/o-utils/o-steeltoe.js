@@ -33,6 +33,7 @@ mod.factory('steeltoe',[function () {
 
         _steelToe.get = function (traversalChain) {
             if (traversalChain) {
+
                 var keys = traversalChain.split('.'),
                     returnObject = _steelToe, i;
 
