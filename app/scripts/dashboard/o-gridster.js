@@ -176,7 +176,7 @@ mod.controller('gridsterCtrl', [
             });
 
             self.gridster.$widgets.each(function(i, w) {
-//                angular.element(w).scope().sizeContent();
+                angular.element(w).scope().sizeContent();
             });
 
             self.updateModel();
