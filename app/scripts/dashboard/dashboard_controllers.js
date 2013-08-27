@@ -6,24 +6,30 @@ mod.controller('dashboardCtrl', [
     'permissions_manager',
     function($scope, widgetService, permissions_manager) {
         var self = this;
+        $scope.widgets = [];
 
         $scope.$watch(function() {
             return widgetService.getWidgets();
         }, function(newData, oldData) {
             if(newData === oldData || newData === undefined) return;
-            $scope.widgets = _.map(newData, function(widget) {
+
+            _.each(newData, function(widget) {
+
                 if(widget.views.length > 1) {
                     var allowedViews = [];
-                    _.each(widget.views, function(view) {
 
+                    _.each(widget.views, function(view) {
+                        if(permissions_manager.getPermissions('widgets.'+view.id, 'access')) {
+                            allowedViews.push(view);
+                        }
                     });
+
+                    widget.views = allowedViews;
                 }
 
 
-                return widget;
-
+                if(widget.views.length >= 1) $scope.widgets.push(widget);
             });
-
 
         });
 

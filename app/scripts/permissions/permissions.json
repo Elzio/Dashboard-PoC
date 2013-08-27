@@ -30,7 +30,7 @@
     "resticted_user": {
         "widgets": {
             "group1_view1": {
-                "access": true,
+                "access": false,
                 "edit_content": false
             },
 
@@ -40,12 +40,12 @@
             },
 
             "group2_view1": {
-                "access": false,
+                "access": true,
                 "edit_content": false
             },
 
             "group2_view2": {
-                "access": false,
+                "access": true,
                 "edit_content": false
             },
 

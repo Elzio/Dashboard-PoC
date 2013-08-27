@@ -2,10 +2,11 @@ var mod = angular.module('permissions_manager');
 
 mod.factory('permissions_manager', [
     '$http',
+    '$q',
     'steeltoe',
-    function($http, steeltoe) {
+    function($http, $q, steeltoe) {
         var self = this;
-            self.user_role = 'admin';
+            self.user_role = 'resticted_user';
 
         function loadPermissions() {
             $http.get('scripts/permissions/permissions.json').then(function(response) {
@@ -15,25 +16,20 @@ mod.factory('permissions_manager', [
             });
         }
 
+        loadPermissions();
+
         function getPermissions(path, action) {
             if(path) {
-                console.log('+', self.user_permissions, path, action)
-                  var allowed = steeltoe(self.user_permissions).get(path)[action];
-                console.log(path,allowed);
-                return allowed;
-//                return steeltoe(self.user_permissions).get(path)[action];
+                var isAllowed = steeltoe(self.user_permissions).get(path)[action];
+                return isAllowed;
             }else {
                 return self.user_permissions;
             }
         }
 
-        function checkPermission(id, action) {
-            console.log(steeltoe({key1:{key2:1}}).get('key1'));
 
-        }
         return {
-            getPermissions: getPermissions,
-            checkPermission: checkPermission
-        }
+            getPermissions: getPermissions
+        };
     }
 ]);
