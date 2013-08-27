@@ -14,19 +14,15 @@ mod.controller('dashboardCtrl', [
             if(newData === oldData || newData === undefined) return;
 
             _.each(newData, function(widget) {
+                var allowedViews = [];
 
-                if(widget.views.length > 1) {
-                    var allowedViews = [];
+                _.each(widget.views, function(view) {
+                    if(permissions_manager.getPermissions('widgets.'+view.id, 'access')) {
+                        allowedViews.push(view);
+                    }
+                });
 
-                    _.each(widget.views, function(view) {
-                        if(permissions_manager.getPermissions('widgets.'+view.id, 'access')) {
-                            allowedViews.push(view);
-                        }
-                    });
-
-                    widget.views = allowedViews;
-                }
-
+                widget.views = allowedViews;
 
                 if(widget.views.length >= 1) $scope.widgets.push(widget);
             });

@@ -59,7 +59,7 @@
             "views": [
                 {   "id": "group3_view1",
                     "templateUrl": "templates/tpl1.html",
-                    "title": "Group2 - View1"
+                    "title": "Group3 - View1"
                 }
             ]
         }

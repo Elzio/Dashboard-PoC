@@ -6,7 +6,7 @@ mod.factory('permissions_manager', [
     'steeltoe',
     function($http, $q, steeltoe) {
         var self = this;
-            self.user_role = 'resticted_user';
+            self.user_role = 'admin';
 
         function loadPermissions() {
             $http.get('scripts/permissions/permissions.json').then(function(response) {
