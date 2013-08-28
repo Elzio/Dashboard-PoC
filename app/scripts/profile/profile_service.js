@@ -17,7 +17,8 @@ mod.factory('profileService', [
             demographics: promiseTracker('demographics'),
             directDeposit: promiseTracker('directDeposit'),
             keyDates: promiseTracker('keyDates'),
-            ticker: promiseTracker('ticker')
+            ticker: promiseTracker('ticker'),
+            sampleArray: promiseTracker('sampleArray')
         };
 
 
@@ -35,6 +36,10 @@ mod.factory('profileService', [
             var methodName = 'get' + source;
             console.log('getData:', $parse(methodName));
 
+        }
+
+        function getSampleArray() {
+            return $http.get('scripts/profile/sample_array.json', {tracker: 'sampleArray'});
         }
 
         function getHugeFile() {
@@ -62,6 +67,7 @@ mod.factory('profileService', [
 
         return function() {
             return {
+                getSampleArray: getSampleArray,
                 getHugeFile: getHugeFile,
                 getDemographics: getDemographics,
                 getDirectDeposit: getDirectDeposits,

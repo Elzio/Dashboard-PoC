@@ -2,8 +2,10 @@
     <h1>tpl2</h1>
     <h3 ng-show="tracker.active()">Loading...</h3>
     <div ng-hide="tracker.active()">
-        --
-        {{data}}
-        --
+        <accordion close-others="oneAtATime">
+            <accordion-group ng-repeat="item in data.items">
+                stuff
+            </accordion-group>
+        </accordion>
     </div>
 </div>

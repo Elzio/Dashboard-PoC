@@ -29,7 +29,7 @@ mod.controller('tpl2_ctrl', [
         $scope.data = {};
         $scope.tracker = $scope.datasource().trackers.keyDates;
 
-        $scope.datasource().getKeyDates().then(function(results) {
+        $scope.datasource().getSampleArray().then(function(results) {
             $scope.data = results.data;
         });
     }

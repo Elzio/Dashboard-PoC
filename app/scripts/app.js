@@ -1,5 +1,6 @@
 'use strict';
 var mod = angular.module('DashboardPoCApp', [
+    'ui.bootstrap',
     'ajoslin.promise-tracker',
     'infinite-scroll',
     'permissions_manager',

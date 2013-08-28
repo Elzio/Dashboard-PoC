@@ -20,8 +20,7 @@ mod.factory('permissions_manager', [
 
         function getPermissions(path, action) {
             if(path) {
-                var isAllowed = steeltoe(self.user_permissions).get(path)[action];
-                return isAllowed;
+                return steeltoe(self.user_permissions).get(path)[action];
             }else {
                 return self.user_permissions;
             }
