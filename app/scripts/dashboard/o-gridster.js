@@ -391,12 +391,11 @@ mod.directive('widgetnav', [
             require: '^widget',
             templateUrl: 'templates/widgetnav.html',
             link: function(scope, elm, attrs, ctrl) {
+                var parent, selectBox, buttonGroup, titleWidth, headerWidth, availableWidth;
+
                 if(scope.widget.views.length <= 1) {
                     elm.remove();
                 }
-
-
-                var parent, selectBox, buttonGroup, titleWidth, headerWidth, availableWidth;
 
 
                 parent = elm.parent();
@@ -405,6 +404,7 @@ mod.directive('widgetnav', [
 
                 scope.selectedView = scope.widget.views[0];
 
+                elm.css('opacity', 0);
 
                 function sizeHeader() {
 
@@ -418,21 +418,25 @@ mod.directive('widgetnav', [
                         selectBox.width(availableWidth);
                         scope.widget.showBtns = false;
                     }
-                    elm.fadeIn();
+
+                    elm.css({
+                        top: '50%',
+                        right: '10px',
+                        marginTop: -selectBox.outerHeight() / 2  + 'px',
+                        position: 'absolute',
+                        width: availableWidth + 'px',
+                        textAlign: 'right',
+                        opacity: 1
+                    });
                 }
 
-                $timeout( sizeHeader, 500 );
+                $timeout( sizeHeader, 1000 );
 
                 parent.css({
                     position: 'relative'
                 });
 
-                elm.css({
-                    top: '50%',
-                    right: '10px',
-                    marginTop: -selectBox.outerHeight() / 2  + 'px',
-                    position: 'absolute'
-                });
+
 
                 scope.$on('resize', function() {
                     $timeout(sizeHeader, 500);

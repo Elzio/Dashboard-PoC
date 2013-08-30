@@ -4,7 +4,7 @@
     <div ng-hide="tracker.active()">
         <accordion close-others="oneAtATime">
             <accordion-group ng-repeat="item in data.items">
-                stuff
+                <div ng-include="contentTpl"></div>
             </accordion-group>
         </accordion>
     </div>

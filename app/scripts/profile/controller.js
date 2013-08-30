@@ -25,12 +25,16 @@ mod.controller('tpl1_ctrl', [
 mod.controller('tpl2_ctrl', [
     '$scope',
     '$timeout',
-    function($scope, $timeout) {
+    'permissions_manager',
+    function($scope, $timeout, permissions_manager) {
         $scope.data = {};
-        $scope.tracker = $scope.datasource().trackers.keyDates;
+        $scope.tracker = $scope.datasource().trackers.sampleArray;
 
         $scope.datasource().getSampleArray().then(function(results) {
             $scope.data = results.data;
         });
+
+        $scope.contentTpl = "templates/tpl2_content.html";
+//        $scope.canEdit = permissions_manager.getPermissions()
     }
 ]);

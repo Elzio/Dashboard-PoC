@@ -1,6 +1,5 @@
 {
     "admin": {
-        "widgets": {
             "group1_view1": {
                 "access": true,
                 "edit_content": true
@@ -25,10 +24,9 @@
                 "access": true,
                 "edit_content": true
             }
-        }
+
     },
     "resticted_user": {
-        "widgets": {
             "group1_view1": {
                 "access": false,
                 "edit_content": false
@@ -53,6 +51,6 @@
                 "access": false,
                 "edit_content": false
             }
-        }
+
     }
 }

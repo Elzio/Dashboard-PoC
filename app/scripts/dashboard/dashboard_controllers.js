@@ -8,26 +8,30 @@ mod.controller('dashboardCtrl', [
         var self = this;
         $scope.widgets = [];
 
-        $scope.$watch(function() {
-            return widgetService.getWidgets();
-        }, function(newData, oldData) {
-            if(newData === oldData || newData === undefined) return;
+        $scope.$watch(
+            function() {
+                return widgetService.getWidgets();
+            },
+            function(newData, oldData) {
+                if(newData === oldData || newData === undefined) return;
 
-            _.each(newData, function(widget) {
-                var allowedViews = [];
+                _.each(newData, function(widget) {
+                    var filteredViews = [];
+                    _.each(widget.views, function(view) {
+                        view.permissions = permissions_manager.getPermissions(view.id);
 
-                _.each(widget.views, function(view) {
-                    if(permissions_manager.getPermissions('widgets.'+view.id, 'access')) {
-                        allowedViews.push(view);
-                    }
+                        if(view.permissions.access === true) {
+                            filteredViews.push(view);
+                        }
+                    });
+
+                    widget.views = filteredViews;
+                    if(widget.views.length >= 1) $scope.widgets.push(widget);
                 });
 
-                widget.views = allowedViews;
 
-                if(widget.views.length >= 1) $scope.widgets.push(widget);
-            });
-
-        });
+            }
+        );
 
         $scope.addWidget = function() {
             var fakeWidget = {
