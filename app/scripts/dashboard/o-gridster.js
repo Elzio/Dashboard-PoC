@@ -307,6 +307,7 @@ mod.directive('widget', [
 
                 scope.$on('gridReady', function(event) {
 
+                       scope.sizeContent();
 
                     $timeout( function() {
                         element.resizable({
@@ -322,11 +323,11 @@ mod.directive('widget', [
 
                             },
                             create: function(event, ui) {
-                                scope.sizeContent();
+//                                scope.sizeContent();
                             },
 
                             stop: function(event, ui) {
-                                scope.sizeContent();
+//                                scope.sizeContent();
                                 $timeout(function() {
                                     sizeToGrid(element);
                                     ctrl.updateModel();
@@ -415,7 +416,7 @@ mod.directive('widgetnav', [
                     scope.widget.showBtns = true;
 
                     if(buttonGroup.outerWidth() > availableWidth) {
-                        selectBox.width(availableWidth);
+                        selectBox.width(availableWidth - 14);
                         scope.widget.showBtns = false;
                     }
 
