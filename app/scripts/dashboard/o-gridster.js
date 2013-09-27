@@ -139,14 +139,14 @@ mod.controller('gridsterCtrl', [
                     row: wgd.row,
                     sizex: wgd.size_x,
                     sizey: wgd.size_y
-                }
+                };
             },
             draggable: {
                 stop: self.updateModel
             }
         };
-        self.options = angular.extend(self.defaultOptions, $scope.$eval($attrs.options));
 
+        self.options = angular.extend(self.defaultOptions, $scope.$eval($attrs.options));
 
         self.attachElementToGridster = function(li) {
             //attaches a new element to gridster
@@ -162,7 +162,7 @@ mod.controller('gridsterCtrl', [
             var newSize = Math.floor(containerWidth * ( 1 - self.options.margin_ratio) / self.options.cols);
 
             return [[newSize, newSize], [newMargin, newMargin]];
-        }
+        };
 
         self.resizeWidgetDimensions = function() {
 
@@ -187,7 +187,6 @@ mod.controller('gridsterCtrl', [
 
             self.resizeWidgetDimensions();
 
-
             var handler = function(evt) {
                 evt.preventDefault();
                 self.resizeWidgetDimensions();
@@ -195,6 +194,7 @@ mod.controller('gridsterCtrl', [
 
             var debounced_handler = debounce(handler, self.options.resize_delay, false);
             $($window).on('resize', debounced_handler);
+            $($window).trigger('resize');
         };
 
 
@@ -271,10 +271,10 @@ mod.directive('widget', [
                 datasource: '='
             },
             controller: function($scope, $element, $attrs, $controller, profileService) {
-                this.updateTemplate = function(templateUrl) {
+                this.updateTemplate = function (templateUrl) {
 
                     $scope.widget.currentTemplate = templateUrl;
-                }
+                };
 
                 $scope.scrolled = function() {
                     console.log('--scrolled widget');
@@ -288,26 +288,22 @@ mod.directive('widget', [
                 }
 
                 scope.sizeContent = function() {
-
                     var $content = element.find('.content');
                     var headerHeight= element.find('header').outerHeight();
-
 
                     $content.fadeOut('fast', function(){
                         scope.$broadcast('resize');
                         $timeout(function() {
                             $content.outerHeight(element.innerHeight() - headerHeight);
                             $content.fadeIn();
-                        }, 300);
+                        }, 500);
                     });
-
-
                 };
 
 
                 scope.$on('gridReady', function(event) {
 
-                       scope.sizeContent();
+                    scope.sizeContent();
 
                     $timeout( function() {
                         element.resizable({
@@ -317,7 +313,6 @@ mod.directive('widget', [
                                 var newDimensions = ctrl.calculateNewDimensions();
                                 var base_size = newDimensions[0];
                                 var margins = newDimensions[1];
-
                                 element.resizable('option', 'grid', [(base_size[0]) + ((margins[0]) * 2), (base_size[1]) + ((margins[1]) * 2)]);
 
 
@@ -346,12 +341,7 @@ mod.directive('widget', [
                             element.css('cursor', '');
                         });
                     });
-
-
-
                 });
-
-
 
                 function sizeToGrid(element) {
                     var newDimensions = ctrl.calculateNewDimensions();
@@ -362,8 +352,6 @@ mod.directive('widget', [
 
                     var grid_w = (el_w / (base_size[0] + margins[0] * 2));
                     var grid_h = (el_h / (base_size[1] + margins[0] * 2));
-
-
 
                     // Remove inline styles added by resizable during resize,
                     // to give back "control" to gridster's stylesheets

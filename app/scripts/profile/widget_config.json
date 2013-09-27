@@ -7,8 +7,8 @@
             "grid": {
                 "col": 1,
                 "row": 1,
-                "sizex": 5,
-                "sizey": 4
+                "sizex": 4,
+                "sizey": 2
             },
             "id": 0,
             "guid": "227821c7-7893-43dd-831b-822f9ecdb074",
@@ -28,8 +28,8 @@
             "grid": {
                 "col": 1,
                 "row": 1,
-                "sizex": 5,
-                "sizey": 4
+                "sizex": 2,
+                "sizey": 3
             },
             "id": 1,
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
@@ -48,10 +48,10 @@
         {
             "title": "Group3",
             "grid": {
-                "col": 1,
+                "col": 8,
                 "row": 1,
-                "sizex": 5,
-                "sizey": 4
+                "sizex": 2,
+                "sizey": 3
             },
             "id": 1,
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",
