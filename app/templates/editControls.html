@@ -1,0 +1,24 @@
+<div class='row-fluid btn-group edit-controls'>
+    <div class='pull-right'>
+        <div class='btn btn-small btn-danger pull-right'
+             ng-click='delete($index)'
+             ng-hide="editing || !deletable">
+            Delete
+        </div><!--
+		--><div class='btn btn-small btn-primary pull-right'
+                ng-click='edit()'
+                ng-hide="editing || editable == false">
+        Edit
+    </div><!--
+		--><div class='btn btn-small btn-primary pull-right'
+                ng-click='saveEdit()'
+                ng-show="editing">
+        Save
+    </div><!--
+		--><div class='btn btn-small btn-warning pull-right'
+                ng-click='cancelEdit()'
+                ng-show="editing">
+        Cancel
+    </div>
+    </div>
+</div>

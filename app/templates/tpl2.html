@@ -4,7 +4,8 @@
     <div ng-hide="tracker.active()">
         <accordion close-others="oneAtATime">
             <accordion-group ng-repeat="item in data.items">
-                <div ng-include="contentTpl"></div>
+                <div ng-include="'templates/editControls.html'" />
+                <div ng-include="contentTpl" />
             </accordion-group>
         </accordion>
     </div>

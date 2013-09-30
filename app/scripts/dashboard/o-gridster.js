@@ -185,7 +185,7 @@ mod.controller('gridsterCtrl', [
 
         self.hookWidgetResizer = function() {
 
-            self.resizeWidgetDimensions();
+//            self.resizeWidgetDimensions();
 
             var handler = function(evt) {
                 evt.preventDefault();

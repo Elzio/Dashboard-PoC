@@ -35,6 +35,6 @@ mod.controller('tpl2_ctrl', [
         });
 
         $scope.contentTpl = "templates/tpl2_content.html";
-//        $scope.canEdit = permissions_manager.getPermissions()
+
     }
 ]);

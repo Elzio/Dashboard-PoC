@@ -2,10 +2,13 @@ var mod = angular.module('o-dashboard');
 
 mod.controller('dashboardCtrl', [
     '$scope',
+	'$q',
     'widgetService',
     'permissions_manager',
-    function($scope, widgetService, permissions_manager) {
-        var self = this;
+    function($scope, $q, widgetService, permissions_manager) {
+        var self = this,
+			views_defer = $q.defer();
+
         $scope.widgets = [];
 
         $scope.$watch(
@@ -18,19 +21,20 @@ mod.controller('dashboardCtrl', [
                 _.each(newData, function(widget) {
                     var filteredViews = [];
                     _.each(widget.views, function(view) {
-                        view.permissions = permissions_manager.getPermissions(view.id);
+                        permissions_manager.getPermissions(view.id).then( function(perms){
 
-                        if(view.permissions.access === true) {
-                            filteredViews.push(view);
-                        }
+							view.permissions = perms;
+
+                            if(view.permissions.access === true) {
+                                filteredViews.push(view);
+                            }
+                        });
                     });
 
-                    widget.views = filteredViews;
-                    if(widget.views.length >= 1) $scope.widgets.push(widget);
+					widget.views = filteredViews;
+					if(widget.views.length >= 1) $scope.widgets.push(widget);
                 });
-
-
-            }
+			}
         );
 
         $scope.addWidget = function() {
