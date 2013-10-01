@@ -119,6 +119,7 @@ mod.controller('gridsterCtrl', [
 
         self.updateModel = function(event, ui) {
             var serializedGrid = self.gridster.serialize();
+
             angular.forEach($scope.widgets, function(widget, idx) {
                 widget.grid = serializedGrid[idx];
             });
@@ -164,20 +165,22 @@ mod.controller('gridsterCtrl', [
             return [[newSize, newSize], [newMargin, newMargin]];
         };
 
-        self.resizeWidgetDimensions = function() {
+        self.resizeWidgetDimensions = function(widget) {
+			 var newDimensions = self.calculateNewDimensions(),
+				 widgets = widget || self.gridster.$widgets;
 
-            // Calculate widget dimension proportional to parent dimension.
-            var newDimensions = self.calculateNewDimensions();
-
-            // Set new "fluid" widget dimensions
+			// Set new "fluid" widget dimensions
             self.gridster.resize_widget_dimensions({
                 widget_base_dimensions: newDimensions[0],
                 widget_margins: newDimensions[1]
             });
 
-            self.gridster.$widgets.each(function(i, w) {
-                angular.element(w).scope().sizeContent();
-            });
+
+
+			widgets.each(function(i, w) {
+				$scope.$broadcast('resized', angular.element(w).scope());
+				angular.element(w).scope().sizeContent();
+			});
 
             self.updateModel();
         };
@@ -185,11 +188,11 @@ mod.controller('gridsterCtrl', [
 
         self.hookWidgetResizer = function() {
 
-//            self.resizeWidgetDimensions();
-
             var handler = function(evt) {
                 evt.preventDefault();
-                self.resizeWidgetDimensions();
+				if (!$(evt.target).hasClass('ui-resizable')) {
+					self.resizeWidgetDimensions();
+				}
             };
 
             var debounced_handler = debounce(handler, self.options.resize_delay, false);
@@ -200,8 +203,6 @@ mod.controller('gridsterCtrl', [
 
         $scope.$watch('widgets.length', function(newValue, oldValue) {
             if (newValue === oldValue) return;
-//            if (newValue !== oldValue+1) return; //not an add
-
             // Added a widget
             if( newValue === oldValue+1 ) {
                 $timeout(function() {
@@ -277,7 +278,7 @@ mod.directive('widget', [
                 };
 
                 $scope.scrolled = function() {
-                    console.log('--scrolled widget');
+                    // placeholder
                 };
 
             },
@@ -292,7 +293,6 @@ mod.directive('widget', [
                     var headerHeight= element.find('header').outerHeight();
 
                     $content.fadeOut('fast', function(){
-                        scope.$broadcast('resize');
                         $timeout(function() {
                             $content.outerHeight(element.innerHeight() - headerHeight);
                             $content.fadeIn();
@@ -317,15 +317,11 @@ mod.directive('widget', [
 
 
                             },
-                            create: function(event, ui) {
-//                                scope.sizeContent();
-                            },
-
                             stop: function(event, ui) {
-//                                scope.sizeContent();
+								event.stopPropagation();
+								ctrl.resizeWidgetDimensions(element);
                                 $timeout(function() {
                                     sizeToGrid(element);
-                                    ctrl.updateModel();
                                 }, 300);
                             }
                         });
@@ -333,7 +329,6 @@ mod.directive('widget', [
 
 
                         $('.ui-resizable-handle, .no-drag, .content, .disabled, [disabled]', element).hover(function() {
-
                             ctrl.gridster.disable();
                             element.css('cursor', 'default');
                         }, function() {
@@ -364,7 +359,6 @@ mod.directive('widget', [
                     });
 
                     // Tell gridster to resize the widget through its own api
-                    ctrl.resizeWidgetDimensions();
                     ctrl.gridster.resize_widget(element, grid_w, grid_h);
                 }
             }
@@ -412,23 +406,22 @@ mod.directive('widgetnav', [
                         top: '50%',
                         right: '10px',
                         marginTop: -selectBox.outerHeight() / 2  + 'px',
-                        position: 'absolute',
                         width: availableWidth + 'px',
                         textAlign: 'right',
                         opacity: 1
                     });
                 }
 
-                $timeout( sizeHeader, 1000 );
-
                 parent.css({
                     position: 'relative'
                 });
 
+                scope.$on('resized', function(evt, changed_scope) {
+					if(scope === changed_scope) {
 
+						$timeout(sizeHeader, 300);
+					}
 
-                scope.$on('resize', function() {
-                    $timeout(sizeHeader, 500);
                 });
 
                 scope.$watch('selectedView', function(newVal, oldVal){

@@ -28,11 +28,15 @@ mod.controller('dashboardCtrl', [
                             if(view.permissions.access === true) {
                                 filteredViews.push(view);
                             }
+
+							views_defer.resolve(filteredViews);
                         });
                     });
 
-					widget.views = filteredViews;
-					if(widget.views.length >= 1) $scope.widgets.push(widget);
+					views_defer.promise.then(function(views) {
+						widget.views = filteredViews;
+						if(widget.views.length >= 1) $scope.widgets.push(widget);
+					});
                 });
 			}
         );

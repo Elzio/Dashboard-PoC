@@ -15,7 +15,7 @@ mod.factory('permissions_manager', [
 
         function getPermissions(path, action, cb) {
 
-//			var cb = path instanceof Function ? path : action instanceof Function ? action : cb;
+			var cb = path instanceof Function ? path : action instanceof Function ? action : cb;
 
 			data_prom.then(function(response){
 				self.all_permissions = response.data;
