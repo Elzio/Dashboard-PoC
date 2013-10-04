@@ -8,7 +8,7 @@
                 "col": 1,
                 "row": 1,
                 "sizex": 4,
-                "sizey": 2
+                "sizey": 4
             },
             "id": 0,
             "guid": "227821c7-7893-43dd-831b-822f9ecdb074",
@@ -19,7 +19,7 @@
                 },
                 {   "id": "group1_view2",
                     "templateUrl": "templates/tpl2.html",
-                    "title": "Group2 - View2"
+                    "title": "Group1 - View2"
                 }
             ]
         },
@@ -28,8 +28,8 @@
             "grid": {
                 "col": 1,
                 "row": 1,
-                "sizex": 2,
-                "sizey": 3
+                "sizex": 4,
+                "sizey": 4
             },
             "id": 1,
             "guid": "79c09a8b-1f98-46d9-9877-425a31ed741f",

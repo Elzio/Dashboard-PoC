@@ -20,17 +20,19 @@ mod.controller('dashboardCtrl', [
 
                 _.each(newData, function(widget) {
                     var filteredViews = [];
-                    _.each(widget.views, function(view) {
+                    _.each(widget.views, function(view, idx, arr) {
                         permissions_manager.getPermissions(view.id).then( function(perms){
-
 							view.permissions = perms;
 
                             if(view.permissions.access === true) {
                                 filteredViews.push(view);
                             }
 
-							views_defer.resolve(filteredViews);
+							if(idx === arr.length - 1) {
+								views_defer.resolve(filteredViews);
+							}
                         });
+
                     });
 
 					views_defer.promise.then(function(views) {

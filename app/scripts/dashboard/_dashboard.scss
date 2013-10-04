@@ -32,11 +32,6 @@ gridster,
             }
 
             &[widget] {
-                //-webkit-transform: perspective(500px);
-                //-moz-transform: perspective(500px);
-                //-o-transform: perspective(500px);
-                //-ms-transform:  perspective(500px);
-                //transform: perspective(500px);
 
                 background: gray;
                 cursor: pointer;
@@ -53,7 +48,7 @@ gridster,
 
                     [widgetnav] {
 					 	position: absolute;
-                        transition: opacity 0.2s ease-out;
+                        //transition: opacity 0.2s ease-out;
 
 
                         .btn-group {
@@ -68,17 +63,6 @@ gridster,
             &.dragging {
                 box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
                 opacity: 0.5;
-                //-webkit-transition: -webkit-transform 0.5s ease !important;
-                //-moz-transition: -moz-transform 0.5s ease !important;
-                //-o-transition: -o-transform 0.5s ease !important;
-                //-ms-transition: -ms-transform 0.5s ease !important;
-                //transition: transform 0.5s ease !important;
-                //
-                //-webkit-transform: perspective(500px) rotateX(-20deg);
-                //-moz-transform: perspective(500px) rotateX(-20deg);
-                //-o-transform: perspective(500px) rotateX(-20deg);
-                //-ms-transform: perspective(500px) rotateX(-20deg);
-                //transform: perspective(500px) rotateX(-20deg);
             }
 
             .content {

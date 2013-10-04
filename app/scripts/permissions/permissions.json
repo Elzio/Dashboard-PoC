@@ -1,23 +1,29 @@
 {
     "admin": {
             "group1_view1": {
-                "access": true,
+                "access": false,
                 "edit_content": true
             },
 
             "group1_view2": {
                 "access": true,
-                "edit_content": true
+                "edit_content": true,
+				"add_content": true,
+				"upload_content": false,
+				"remove_content": true
             },
 
             "group2_view1": {
                 "access": true,
-                "edit_content": false
+                "edit_content": true,
+				"upload_content": true
             },
 
             "group2_view2": {
                 "access": true,
-                "edit_content": true
+                "edit_content": true,
+				"add_content": true,
+				"remove_content": true
             },
 
             "group3_view1": {

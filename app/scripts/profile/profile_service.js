@@ -7,10 +7,6 @@ mod.factory('profileService', [
 
     function($http, $parse, promiseTracker) {
         var self = this;
-//        this.demographics = {};
-//        this.directDeposit = {};
-//        this.keyDates = {};
-//        this.ticker = {};
 
         this.trackers = {
             huge: promiseTracker('huge'),

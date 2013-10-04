@@ -1,8 +1,9 @@
 <div ng-controller='tpl1_ctrl'>
     <h1>tpl1</h1>
     <div ng-hide="trackers.demographics.active()">Done {{demographics}}</div>
+	<div ng-include="'templates/editControls.html'" />
 
-    <div>
+	<div>
         --
         {{data}}
         --
@@ -12,3 +13,19 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad commodi cumque dignissimos, exercitationem in ipsum libero tempora voluptate voluptates voluptatum! Adipisci eaque fugiat ipsam magnam magni sint tenetur ut vero?</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad commodi cumque dignissimos, exercitationem in ipsum libero tempora voluptate voluptates voluptatum! Adipisci eaque fugiat ipsam magnam magni sint tenetur ut vero?</p>
 </div>
+
+
+<ng-switch on="status.editing == $index"
+           class="animate-switch-container">
+	<div ng-switch-default>
+		<accordion-heading>
+			{{item.name}}
+		</accordion-heading>
+		<hr />
+		{{item}}
+	</div>
+
+	<div ng-switch-when="true">
+		<h1>editing item {{$index}}</h1>
+	</div>
+</ng-switch>

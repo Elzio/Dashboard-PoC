@@ -6,6 +6,7 @@ mod.directive('preventWinScroll', [
     function($window) {
 
         var scroll_handler = function(evt, d) {
+			console.log('evt', evt, d);
             var scrollHeight = evt.currentTarget.scrollHeight,
                 clientHeight = evt.currentTarget.clientHeight,
                 scrollTop =    evt.currentTarget.scrollTop,
@@ -25,6 +26,7 @@ mod.directive('preventWinScroll', [
         return {
             restrict: 'AC',
             link: function(scope, element, attrs) {
+				console.log(element);
                 element.bind('mousewheel', scroll_handler);
             }
         };

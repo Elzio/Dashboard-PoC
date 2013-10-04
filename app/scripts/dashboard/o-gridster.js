@@ -272,6 +272,9 @@ mod.directive('widget', [
                 datasource: '='
             },
             controller: function($scope, $element, $attrs, $controller, profileService) {
+				transitionEnd($element).bind(function() {
+					console.log('ended', arguments);
+				});
                 this.updateTemplate = function (templateUrl) {
 
                     $scope.widget.currentTemplate = templateUrl;
@@ -291,13 +294,14 @@ mod.directive('widget', [
                 scope.sizeContent = function() {
                     var $content = element.find('.content');
                     var headerHeight= element.find('header').outerHeight();
-
-                    $content.fadeOut('fast', function(){
-                        $timeout(function() {
-                            $content.outerHeight(element.innerHeight() - headerHeight);
-                            $content.fadeIn();
-                        }, 500);
-                    });
+					$content.outerHeight(element.innerHeight() - headerHeight);
+//					$content.fadeIn();
+//                    $content.fadeOut('fast', function(){
+//                        $timeout(function() {
+//                            $content.outerHeight(element.innerHeight() - headerHeight);
+//                            $content.fadeIn();
+//                        }, 500);
+//                    });
                 };
 
 

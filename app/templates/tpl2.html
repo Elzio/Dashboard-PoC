@@ -2,7 +2,7 @@
     <h1>tpl2</h1>
     <h3 ng-show="tracker.active()">Loading...</h3>
     <div ng-hide="tracker.active()">
-        <accordion close-others="oneAtATime">
+        <accordion close-others="true">
             <accordion-group ng-repeat="item in data.items">
                 <div ng-include="'templates/editControls.html'" />
                 <div ng-include="contentTpl" />

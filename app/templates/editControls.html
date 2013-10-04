@@ -1,24 +1,40 @@
-<div class='row-fluid btn-group edit-controls'>
-    <div class='pull-right'>
-        <div class='btn btn-small btn-danger pull-right'
-             ng-click='delete($index)'
-             ng-hide="editing || !deletable">
-            Delete
-        </div><!--
-		--><div class='btn btn-small btn-primary pull-right'
-                ng-click='edit()'
-                ng-hide="editing || editable == false">
-        Edit
-    </div><!--
-		--><div class='btn btn-small btn-primary pull-right'
-                ng-click='saveEdit()'
-                ng-show="editing">
-        Save
-    </div><!--
-		--><div class='btn btn-small btn-warning pull-right'
-                ng-click='cancelEdit()'
-                ng-show="editing">
-        Cancel
-    </div>
-    </div>
+<div class="row-fluid">
+	{{status}}
+	<div class="pull-right">
+		<div ng-show="selectedView.permissions.upload_content">
+			<div class="btn btn-small btn-primary"
+			     ng-click="upload(item, $index)">
+				Upload
+			</div>
+		</div>
+
+		<div ng-show="selectedView.permissions.delete_content">
+			<div class="btn btn-small btn-danger"
+			     ng-click="delete(item, $index)">
+				Edit
+			</div>
+		</div>
+
+	    <div ng-show="selectedView.permissions.edit_content">
+
+
+		    <div class="btn btn-small btn-primary"
+	                ng-click="edit(item, $index)"
+	                ng-show="status.editing == false">
+	            Edit
+	        </div>
+
+		    <div class="btn btn-small btn-primary"
+	                ng-click="save(item, $index)"
+	                ng-show="status.editing == $index">
+	            Save
+	        </div>
+
+		    <div class="btn btn-small btn-warning"
+	                ng-click="cancel(item, $index)"
+	                ng-show="status.editing == $index">
+	            Cancel
+	        </div>
+	    </div>
+	</div>
 </div>
