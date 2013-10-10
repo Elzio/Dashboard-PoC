@@ -3,23 +3,26 @@
     <h3 ng-show="tracker.active()">Loading...</h3>
     <div ng-hide="tracker.active()">
         <accordion close-others="true">
-            <accordion-group ng-repeat="item in data.items">
+            <accordion-group ng-repeat="item in data.items" >
 	            <edit-controls></edit-controls>
 
-	            <div ng-if="status.idx != $index">
+	            <div ng-if="editStatus.idx != $index">
 		            <accordion-heading>
 			            <h5>{{item.name}}</h5>
 		            </accordion-heading>
 		            content
 	            </div>
 
-	            <div ng-if="status.editing == true && status.idx == $index">
-		            <accordion-heading>
-			            <h5>{{item.name}}</h5>
-		            </accordion-heading>
-		            Editing content
+	            <div ng-if="editStatus.editing == true && editStatus.idx == $index">
+			            <accordion-heading>
+				            <h5><input type="text" ng-model="item.name" required/></h5>
+			            </accordion-heading>
+		            <form name="form" ng-model="item">
+			            <input type="text" ng-model="item.name" required />
+			            <input type="email" required />
+			            <button ng-disabled="form.$invalid">Save</button>
+		            </form>
 	            </div>
-
 
             </accordion-group>
         </accordion>

@@ -1,73 +1,35 @@
 <div class="row-fluid">
 	{{status}}
-	<!--<div class="pull-right">
-			<div class="btn btn-small btn-primary"
-			     ng-click="upload($event, $index)"
-			     ng-if="selectedView.permissions.upload_content && status.editing != true">
-				Upload
-			</div>
-
-
-
-			<div class="btn btn-small btn-danger"
-			     ng-click="delete($event, $index)"
-			     ng-if="selectedView.permissions.remove_content && status.editing != true">
-				Delete
-			</div>
-
-
-		    <div ng-if="selectedView.permissions.edit_content">
-			    <div class="btn btn-small btn-primary"
-		             ng-click="edit($event, $index)"
-				     ng-hide="status.editing == true">
-		            Edit
-		        </div>
-
-			    <div class="btn btn-small btn-primary"
-		             ng-click="save($event, $index)"
-		             ng-if="status.editing == true && status.idx == $index">
-		            Save
-		        </div>
-
-			    <div class="btn btn-small btn-warning"
-		             ng-click="cancel($event, $index)"
-		             ng-if="status.editing == true && status.idx == $index">
-		            Cancel
-		        </div>
-		    </div>
-	</div> -->
 
 	<div class="btn-group pull-right">
 		<div class="btn btn-small btn-primary"
 		     ng-click="upload($event, $index)"
-		     ng-if="selectedView.permissions.upload_content && status.editing != true">
+		     ng-if="selectedView.permissions.upload_content && editStatus.editing != true">
 			Upload
 		</div>
 
-		<div class="btn btn-small btn-danger"
-		     ng-click="delete($event, $index)"
-		     ng-if="selectedView.permissions.remove_content && status.editing != true">
-			Delete
-		</div>
-
-
-
 		<div class="btn btn-small btn-primary"
 		     ng-click="save($event, $index)"
-		     ng-if="status.editing == true && status.idx == $index">
+		     ng-if="editStatus.editing == true && editStatus.idx == $index">
 			Save
 		</div>
 
 		<div class="btn btn-small btn-primary"
 		     ng-click="edit($event, $index)"
-		     ng-hide="status.editing == true">
+		     ng-hide="editStatus.editing == true">
 			Edit
 		</div>
 
 		<div class="btn btn-small btn-warning"
 		     ng-click="cancel($event, $index)"
-		     ng-if="status.editing == true && status.idx == $index">
+		     ng-if="editStatus.editing == true && editStatus.idx == $index">
 			Cancel
+		</div>
+
+		<div class="btn btn-small btn-danger"
+		     ng-click="remove($event, $index)"
+		     ng-if="selectedView.permissions.remove_content && editStatus.editing != true">
+			Delete
 		</div>
 
 

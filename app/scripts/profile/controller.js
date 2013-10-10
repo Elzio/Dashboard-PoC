@@ -20,23 +20,29 @@ var WidgetBaseController = function($scope, $q) {
 		self.editDeferred.promise.finally(doneEditing);
 	}
 
-	$scope.status = {};
 
-	function resolved() {
-		console.log('edit resolved', arguments);
+	$scope.editStatus = {};
+
+	function resolved(args) {
+		console.log('edit resolved', args);
+
+		self.commitChanges.apply(self, args);
+
 	}
 
-	function rejected() {
-		console.log('edit canceled', arguments);
+	function rejected(evt, idx) {
+		console.log('edit canceled', args);
 	}
 
 	function doneEditing() {
-		delete $scope.status.editing;
-		delete $scope.status.idx;
+		delete $scope.editStatus.editing;
+		delete $scope.editStatus.idx;
+
 	}
 
 	function edit(evt, idx) {
 		evt.stopPropagation();
+
 
 		// Failsafe: This shouldn't happen as edit buttons are hidden while in edit mode
 		if(self.editDeferred != null) self.editDeferred.reject('starting to edit something else, rolling back');
@@ -44,30 +50,34 @@ var WidgetBaseController = function($scope, $q) {
 		resetDeferred();
 
 		if ((evt.currentScope != evt.targetScope) && idx != null) {
-			$scope.status = {editing: true, idx: idx};
+			$scope.editStatus = {editing: true, idx: idx};
 
 		}else {
-			$scope.status = {editing: true};
+			$scope.editStatus = {editing: true};
 		}
-
-		console.log($scope.widget.currentTemplate);
-		console.log($scope.contentTpl);
-
 	}
 
-	function cancel(evt, item, idx) {
+	function cancel(evt, idx) {
 		evt.stopPropagation();
 		if(self.editDeferred != null) self.editDeferred.reject(arguments);
 	}
 
-	function save(evt, item, idx) {
+	function save(evt, idx) {
 		evt.stopPropagation();
 		if(self.editDeferred != null) self.editDeferred.resolve(arguments);
+	}
+
+	function remove(evt, idx) {
+		evt.stopPropagation();
+		if ((evt.currentScope != evt.targetScope) && idx != null) {
+			console.log('removing', $scope.data.items[idx]);
+		}
 	}
 
 	$scope.$on('edit_start', edit);
 	$scope.$on('edit_cancel', cancel);
 	$scope.$on('edit_save', save);
+	$scope.$on('delete_item', remove);
 
 };
 
@@ -99,13 +109,17 @@ mod.controller('tpl2_ctrl', [
     function($injector, $scope) {
         $injector.invoke(WidgetBaseController, this, {$scope: $scope});
 
+
+		this.commitChanges = function(evt, idx) {
+			console.log('committing changes', evt, idx);
+		}
+
+
 		$scope.data = {};
         $scope.tracker = $scope.datasource().trackers.sampleArray;
 
         $scope.datasource().getSampleArray().then(function(results) {
             $scope.data = results.data;
         });
-
-		$scope.contentTpl = 'bobo';
     }
 ]);

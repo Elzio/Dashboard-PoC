@@ -8,15 +8,14 @@
             "group1_view2": {
                 "access": true,
                 "edit_content": true,
-				"add_content": true,
-				"upload_content": false,
+				"upload_content": true,
 				"remove_content": true
             },
 
             "group2_view1": {
                 "access": true,
                 "edit_content": true,
-				"upload_content": true
+				"upload_content": false
             },
 
             "group2_view2": {

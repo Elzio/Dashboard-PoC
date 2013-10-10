@@ -4,11 +4,11 @@
 
 	<edit-controls></edit-controls>
 
-	<div ng-if="!status.editing">
+	<div ng-if="!editStatus.editing">
         {{data}}
     </div>
 
-	<div ng-if="status.editing">
+	<div ng-if="editStatus.editing">
 		Editing Data
 	</div>
 </div>

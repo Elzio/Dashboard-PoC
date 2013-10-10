@@ -8,25 +8,23 @@ mod.directive('editControls', [
 			link: function(scope, element, attributes) {
 
 				scope.edit = function(evt, idx) {
-					scope.status.editing = true;
+					evt.stopPropagation();
 					scope.$emit('edit_start', idx);
 				};
 
 				scope.cancel = function(evt, idx) {
-					scope.status.editing = false;
+					evt.stopPropagation();
 					scope.$emit('edit_cancel', idx);
 				};
 
 				scope.save = function(evt, idx) {
-					scope.status.editing = false;
+					evt.stopPropagation();
 					scope.$emit('edit_save', idx);
 				};
 
-				scope.delete = function(evt, idx) {
-					scope.$emit('delete', idx);
+				scope.remove = function(evt, idx) {
+					scope.$emit('delete_item', idx);
 				};
-
-
 			}
 		}
 	}
