@@ -195,8 +195,8 @@ mod.controller('gridsterCtrl', [
 				}
             };
 
-            var debounced_handler = debounce(handler, self.options.resize_delay, false);
-            $($window).on('resize', debounced_handler);
+            var debouncedHandler = debounce(handler, self.options.resize_delay, false);
+            $($window).on('resize', debouncedHandler);
             $($window).trigger('resize');
         };
 
@@ -272,8 +272,8 @@ mod.directive('widget', [
                 datasource: '='
             },
             controller: function($scope, $element, $attrs, $controller, profileService) {
-				transitionEnd($element).bind(function() {
-					console.log('ended', arguments);
+				transitionEnd($element).bind(function(event) {
+					event.stopPropagation();
 				});
                 this.updateTemplate = function (templateUrl) {
 
@@ -315,9 +315,9 @@ mod.directive('widget', [
                             autoHide: true,
                             start: function(event, ui) {
                                 var newDimensions = ctrl.calculateNewDimensions();
-                                var base_size = newDimensions[0];
+                                var baseSize = newDimensions[0];
                                 var margins = newDimensions[1];
-                                element.resizable('option', 'grid', [(base_size[0]) + ((margins[0]) * 2), (base_size[1]) + ((margins[1]) * 2)]);
+                                element.resizable('option', 'grid', [(baseSize[0]) + ((margins[0]) * 2), (baseSize[1]) + ((margins[1]) * 2)]);
 
 
                             },
@@ -344,13 +344,13 @@ mod.directive('widget', [
 
                 function sizeToGrid(element) {
                     var newDimensions = ctrl.calculateNewDimensions();
-                    var base_size = newDimensions[0];
+                    var baseSize = newDimensions[0];
                     var margins = newDimensions[1];
-                    var el_w = element.width() + margins[0] * 2;
-                    var el_h = element.height() + margins[1] * 2;
+                    var elW = element.width() + margins[0] * 2;
+                    var elH = element.height() + margins[1] * 2;
 
-                    var grid_w = (el_w / (base_size[0] + margins[0] * 2));
-                    var grid_h = (el_h / (base_size[1] + margins[0] * 2));
+                    var gridW = (elW / (baseSize[0] + margins[0] * 2));
+                    var gridH = (elH / (baseSize[1] + margins[0] * 2));
 
                     // Remove inline styles added by resizable during resize,
                     // to give back "control" to gridster's stylesheets
@@ -363,7 +363,7 @@ mod.directive('widget', [
                     });
 
                     // Tell gridster to resize the widget through its own api
-                    ctrl.gridster.resize_widget(element, grid_w, grid_h);
+                    ctrl.gridster.resize_widget(element, gridW, gridH);
                 }
             }
         };

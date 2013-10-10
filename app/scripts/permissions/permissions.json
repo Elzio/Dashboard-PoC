@@ -21,7 +21,7 @@
 
             "group2_view2": {
                 "access": true,
-                "edit_content": true,
+                "edit_content": false,
 				"add_content": true,
 				"remove_content": true
             },

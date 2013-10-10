@@ -4,8 +4,23 @@
     <div ng-hide="tracker.active()">
         <accordion close-others="true">
             <accordion-group ng-repeat="item in data.items">
-                <div ng-include="'templates/editControls.html'" />
-                <div ng-include="contentTpl" />
+	            <edit-controls></edit-controls>
+
+	            <div ng-if="status.idx != $index">
+		            <accordion-heading>
+			            <h5>{{item.name}}</h5>
+		            </accordion-heading>
+		            content
+	            </div>
+
+	            <div ng-if="status.editing == true && status.idx == $index">
+		            <accordion-heading>
+			            <h5>{{item.name}}</h5>
+		            </accordion-heading>
+		            Editing content
+	            </div>
+
+
             </accordion-group>
         </accordion>
     </div>

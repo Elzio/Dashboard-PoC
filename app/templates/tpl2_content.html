@@ -1,15 +1,5 @@
-<ng-switch on="status.editing == $index"
-		   class="animate-switch-container">
-	<div ng-switch-default>
-		<accordion-heading>
-			{{item.name}}
-		</accordion-heading>
-		<hr />
-		{{item}}
-	</div>
+<accordion-heading>
+	<h3>{{item.name}}</h3>
+</accordion-heading>
 
-	<div ng-switch-when="true">
-		<h1>editing item {{$index}}</h1>
-	</div>
-</ng-switch>
-
+<p>Status: {{status}}</p>
